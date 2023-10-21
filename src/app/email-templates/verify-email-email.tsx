@@ -14,7 +14,7 @@ export const VerifyEmailEmailTemplate: React.FC<
     </h1>
     <p>To verify your email, click on this link:</p>
     <a
-      href={`http://localhost:3000/auth/verify-email?token=${emailVerificationToken}`}
+      href={`http://web.axiom-me.com/auth/verify-email?token=${emailVerificationToken}`}
     >
       Click here to verify your email
     </a>
