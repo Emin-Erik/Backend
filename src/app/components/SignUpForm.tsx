@@ -3,12 +3,13 @@
 import React, { useState } from "react";
 import { signUp } from "../actions/users/signUp";
 import { Button, Input } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-
+  const router = useRouter();
   const [message, setMessage] = useState("");
 
   const handleSubmit = async () => {
@@ -16,6 +17,11 @@ const SignUpForm = () => {
     const message = await signUp(email, username, password);
     setMessage(message);
   };
+
+  if (message === "Successfully created new user!") {
+    router.refresh();
+    router.push("/");
+  }
 
   return (
     <div className="grid grid-cols-2 h-screen	">

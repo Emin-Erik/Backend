@@ -4,9 +4,14 @@ import prisma from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { sendEmail } from "../emails/sendEmail";
+import { useRouter } from "next/navigation";
 import { VerifyEmailEmailTemplate } from "@/app/email-templates/verify-email-email";
 
-export const signUp = async (email: string, username: string, password: string) => {
+export const signUp = async (
+  email: string,
+  username: string,
+  password: string
+) => {
   const usermail = await prisma.user.findUnique({
     where: {
       email,
@@ -23,7 +28,7 @@ export const signUp = async (email: string, username: string, password: string) 
     return "User with that email already exists.";
   }
 
-  if (usermail) {
+  if (user) {
     return "User with that username already exists.";
   }
 

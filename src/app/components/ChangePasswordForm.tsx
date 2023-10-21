@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { changePassword } from "../actions/users/changePassword";
+import { Button, Input } from "@nextui-org/react";
 
 interface ChangePasswordFormProps {
   resetPasswordToken: string;
@@ -26,21 +27,27 @@ const ChangePasswordForm = ({
   };
 
   return (
-    <div>
-      <h1>Change Password</h1>
-      <input
+    <div className="flex flex-col gap-4 w-1/4 justify-center m-auto h-screen">
+      <a href="/">
+        <img
+          className="max-h-20 m-auto"
+          src="/assets/Axiom_Logo.png"
+          alt="Logo"
+        />
+      </a>
+      <Input
         type="password"
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input
+      <Input
         type="password"
         placeholder="Confirm Password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
-      <button onClick={handleSubmit}>Change Password</button>
+      <Button onClick={handleSubmit}>Change Password</Button>
       <p>{message}</p>
     </div>
   );
