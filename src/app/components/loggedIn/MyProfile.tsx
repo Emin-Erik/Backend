@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import {
   Avatar,
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -12,12 +13,11 @@ import { signOut } from "next-auth/react";
 
 export default function App() {
   const { data: session } = useSession(); // Use "data" for destructuring
-
   const SignOut = () => {
-      signOut({
-        callbackUrl: "/",
-        redirect: true,
-      });
+    signOut({
+      callbackUrl: "/",
+      redirect: true,
+    });
   };
 
   return (
@@ -35,7 +35,7 @@ export default function App() {
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
             {session ? (
-              <p className="font-bold">{session.user?.email}</p>
+              <p className="font-bold">{session.user?.name}</p>
             ) : (
               <p>Not signed in</p>
             )}
@@ -46,11 +46,7 @@ export default function App() {
           <DropdownItem key="system">System</DropdownItem>
           <DropdownItem key="configurations">Configurations</DropdownItem>
           <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-          <DropdownItem
-            key="logout"
-            color="danger"
-            onPress={SignOut}
-          >
+          <DropdownItem key="logout" color="danger" onPress={SignOut}>
             Log Out
           </DropdownItem>
         </DropdownMenu>

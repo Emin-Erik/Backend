@@ -88,6 +88,7 @@ export const authOptions: AuthOptions = {
 
       return params.session;
     },
+
     async jwt(params: {
       token: JWT;
       user?: User | undefined;
@@ -96,7 +97,16 @@ export const authOptions: AuthOptions = {
       isNewUser?: boolean | undefined;
     }) {
       if (params.user) {
+        const email = params.user.email!;
+        const user = await prisma.user.findUnique({
+          where: {
+            email,
+          },
+        });
         params.token.email = params.user.email;
+        if (user) {
+          params.token.name = user.username;
+        }
       }
 
       return params.token;

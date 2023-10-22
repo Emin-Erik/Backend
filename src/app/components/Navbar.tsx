@@ -18,7 +18,7 @@ import LoginModal from "../auth/signin/LoginModal";
 import { useSession } from "next-auth/react";
 
 const NavbarTemplate = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
