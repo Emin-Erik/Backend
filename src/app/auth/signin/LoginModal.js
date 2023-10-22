@@ -36,13 +36,6 @@ export default function App() {
         redirect: false,
       });
 
-      useEffect(() => {
-        if (status === "authenticated") {
-          router.refresh();
-          router.push("/");
-        }
-      }, [status]);
-
       if (!signInResponse || signInResponse.ok !== true) {
         setMessage("Invalid credentials");
       } else {
@@ -51,9 +44,21 @@ export default function App() {
     } catch (err) {
       console.log(err);
     }
-    setMessage(message);
-    setMessage("Invalid credentials");
+    if (status === "authenticated") {
+      setMessage(<Spinner />);
+    } else {
+      setMessage("Invalid credentials");
+    }
   };
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.refresh();
+      router.push("/");
+    } else {
+      setMessage("Invalid credentials");
+    }
+  }, [status]);
 
   return (
     <>
