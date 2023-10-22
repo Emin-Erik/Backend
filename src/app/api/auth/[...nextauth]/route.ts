@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth/next";
+import { cookies } from "next/headers";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -108,7 +109,7 @@ export const authOptions: AuthOptions = {
           params.token.name = user.username;
         }
       }
-
+      cookies().set("LoggedIn", "true", { maxAge: 30 * 24 * 60 * 60 });
       return params.token;
     },
   },

@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   Avatar,
-  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -10,10 +9,13 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { useCookies } from "next-client-cookies";
 
 export default function App() {
+  const cookies = useCookies();
   const { data: session } = useSession(); // Use "data" for destructuring
   const SignOut = () => {
+    cookies.remove("LoggedIn");
     signOut({
       callbackUrl: "/",
       redirect: true,

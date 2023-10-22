@@ -1,8 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { resetPassword } from "../actions/users/resetPassword";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import { Button, Input } from "@nextui-org/react";
 
 const ResetPasswordForm = () => {
@@ -14,14 +12,6 @@ const ResetPasswordForm = () => {
 
     setMessage(message);
   };
-  const { status } = useSession();
-  const router = useRouter();
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.refresh();
-      router.push("/");
-    }
-  }, [status]);
 
   return (
     <div className="flex flex-col gap-4 w-2/4 justify-center m-auto h-screen">

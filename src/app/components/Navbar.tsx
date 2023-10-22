@@ -1,7 +1,5 @@
 "use client";
 import React from "react";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth/next";
 import { Modal, useDisclosure } from "@nextui-org/react";
 
 import {
@@ -15,10 +13,10 @@ import {
 import { ThemeSwitcher } from "@/app/components/ui/theme/ThemeSwitcher";
 import MyProfile from "./loggedIn/MyProfile";
 import LoginModal from "../auth/signin/LoginModal";
-import { useSession } from "next-auth/react";
+import { useCookies } from "next-client-cookies";
 
 const NavbarTemplate = () => {
-  const { data: session } = useSession();
+  const cookies = useCookies();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -32,7 +30,7 @@ const NavbarTemplate = () => {
         <NavbarItem>
           <ThemeSwitcher />
         </NavbarItem>
-        {session && session.user?.email ? (
+        {cookies.get("LoggedIn") ? (
           <>
             <NavbarItem>
               <MyProfile />
