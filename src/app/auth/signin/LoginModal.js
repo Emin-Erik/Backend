@@ -36,6 +36,13 @@ export default function App() {
         redirect: false,
       });
 
+      useEffect(() => {
+        if (status === "authenticated") {
+          router.refresh();
+          router.push("/");
+        }
+      }, [status]);
+
       if (!signInResponse || signInResponse.ok !== true) {
         setMessage("Invalid credentials");
       } else {
@@ -47,13 +54,6 @@ export default function App() {
     setMessage(message);
     setMessage("Invalid credentials");
   };
-
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.refresh();
-      router.push("/");
-    }
-  }, [status]);
 
   return (
     <>
