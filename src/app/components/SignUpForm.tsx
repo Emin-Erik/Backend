@@ -1,66 +1,192 @@
 "use client";
 
-import React, { useState } from "react";
-import { signUp } from "../actions/users/signUp";
-import { Button, Input } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import Sidebar from "../components/MultiStepSignUp/Sidebar";
+import PersonalInfo from "../components/MultiStepSignUp/PersonalInfo";
+import Addons from "../components/MultiStepSignUp/Addons";
+import Review from "../components/MultiStepSignUp/Review";
+import Success from "../components/MultiStepSignUp/Success";
+import { useMultistepForm } from "../components/MultiStepSignUp/hooks/useMultistepForm";
+import { AnimatePresence } from "framer-motion";
+import { UserFormSchema, UserDetails } from "../../../types";
+import { useRef, useState } from "react";
+import { FormItems } from "../../../types";
 
-const SignUpForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const router = useRouter();
-  const [message, setMessage] = useState("");
+export default function Home() {
+  const {
+    nextStep,
+    isLastStep,
+    gotoForm,
+    isFirstStep,
+    isSuccess,
+    currentStepIndex,
+    previousStep,
+    status,
+  } = useMultistepForm(4);
 
-  const handleSubmit = async () => {
-    setMessage("Signing up...");
-    const message = await signUp(email, username, password);
-    setMessage(message);
+  const InitialValues: FormItems = {
+    planSelected: "arcade",
+    yearly: false,
+    addOns: [
+      {
+        id: 1,
+        checked: true,
+        title: "Online Service",
+        subtitle: "Access to multiple games",
+        price: 1,
+      },
+      {
+        id: 2,
+        checked: false,
+        title: "Large storage",
+        subtitle: "Extra 1TB of cloud save",
+        price: 2,
+      },
+      {
+        id: 3,
+        checked: false,
+        title: "Customizable Profile",
+        subtitle: "Custom theme on your profile",
+        price: 2,
+      },
+    ],
   };
 
-  if (message === "Successfully created new user!") {
-    router.refresh();
-    router.push("/");
-  }
+  const [formData, setFormData] = useState(InitialValues);
+
+  const name = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const phone = useRef<HTMLInputElement>(null);
+
+  const nameErr = useRef<HTMLSpanElement>(null);
+  const emailErr = useRef<HTMLSpanElement>(null);
+  const phoneErr = useRef<HTMLSpanElement>(null);
+
+  const validateUserForm = (data: UserDetails) => {
+    const parsedValues = UserFormSchema.safeParse(data);
+    if (!parsedValues.success) {
+      const formatted = parsedValues.error.format();
+      if (nameErr?.current !== null) {
+        nameErr.current.textContent =
+            formatted.userName?._errors?.toString() || "";
+      }
+      if (emailErr?.current !== null) {
+        emailErr.current.textContent =
+            formatted.userEmail?._errors?.toString() || "";
+      }
+      if (phoneErr?.current !== null) {
+        phoneErr.current.textContent =
+            formatted.userPhone?._errors?.toString() || "";
+      }
+      return formatted;
+    }
+
+    return parsedValues.data;
+  };
+
+  const updateFormData = (updateField: Partial<FormItems>) => {
+    setFormData({ ...formData, ...updateField });
+  };
+
+  const handleFormData = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+
+    const addUserInfo = validateUserForm({
+      userName: name.current?.value || "",
+      userEmail: email.current?.value || "",
+      userPhone: phone.current?.value || "",
+    });
+
+    if (
+        currentStepIndex === 0 &&
+        typeof addUserInfo.userName === "string" &&
+        typeof addUserInfo.userEmail === "string" &&
+        typeof addUserInfo.userPhone === "string"
+    ) {
+      nextStep();
+    } else if (currentStepIndex > 0) {
+      nextStep();
+    }
+  };
 
   return (
-    <div className="grid grid-cols-2 h-screen	">
-      <div className="bg-cover bg-center bg-[url('/assets/register.jpg')] h-screen	"></div>
-      <div className="min-h-screen flex flex-col justify-center ">
-        <div className="flex flex-col gap-4 w-2/4 justify-center m-auto	">
-          <a href="/">
-            <img
-              className="max-h-20 m-auto"
-              src="/assets/Axiom_Logo.png"
-              alt="Logo"
-            />
-          </a>
-          <Input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="username"
-            value={username}
-            placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Button onClick={handleSubmit}>Sign up</Button>
-
-          <p>{message}</p>
+      <main className="h-screen md:grid md:place-items-center md:bg-background">
+        <div
+            className="min-h-screen w-full overflow-hidden bg-default md:mx-auto md:flex md:h-auto md:min-h-[515px] md:w-[768px] md:max-w-[1024px] md:rounded-2xl md:bg-default md:p-2 lg:w-auto"
+            style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px" }}
+        >
+          <Sidebar currentStepIndex={currentStepIndex} />
+          <div className="-mt-[85px] px-4 pb-10 md:-mt-[0px] md:pb-0 bg-default">
+            <section className="overflow-hidden rounded-xl bg-default px-6 py-8 md:h-[500px] md:px-6 lg:w-[550px] lg:px-14">
+              {isSuccess ? (
+                  <AnimatePresence mode="wait">
+                    <Success gotoForm={gotoForm} />
+                  </AnimatePresence>
+              ) : (
+                  <form onSubmit={handleFormData}>
+                    <AnimatePresence mode="wait" custom={status}>
+                      {currentStepIndex === 0 && (
+                          <PersonalInfo
+                              key={"step1"}
+                              status={status}
+                              name={name}
+                              email={email}
+                              phone={phone}
+                              nameErr={nameErr}
+                              emailErr={emailErr}
+                              phoneErr={phoneErr}
+                          />
+                      )}
+                      {currentStepIndex === 1 && (
+                          <Addons
+                              key={"step2"}
+                              status={status}
+                              {...formData}
+                              updateForm={updateFormData}
+                          />
+                      )}
+                      {currentStepIndex === 2 && (
+                          <Addons
+                              key={"step3"}
+                              status={status}
+                              {...formData}
+                              updateForm={updateFormData}
+                          />
+                      )}
+                      {currentStepIndex === 3 && (
+                          <Review
+                              gotoForm={gotoForm}
+                              key={"step4"}
+                              status={status}
+                              {...formData}
+                          />
+                      )}
+                    </AnimatePresence>
+                    <div className="mt-10 flex items-center justify-between">
+                      {isSuccess ? (
+                          ""
+                      ) : (
+                          <>
+                            <button
+                                type="button"
+                                className="font-semibold text-primary"
+                                onClick={previousStep}
+                            >
+                              {isFirstStep ? "" : "Go Back"}
+                            </button>
+                            <button
+                                type="submit"
+                                className="grid h-[45px] min-w-[110px] place-items-center rounded bg-primary font-semibold text-default"
+                            >
+                              {isLastStep ? "Confirm" : "Next Step"}
+                            </button>
+                          </>
+                      )}
+                    </div>
+                  </form>
+              )}
+            </section>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
   );
-};
-
-export default SignUpForm;
+}
