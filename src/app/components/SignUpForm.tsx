@@ -7,11 +7,15 @@ import { z } from 'zod'
 import { FormDataSchema } from '../lib/schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import GewichtSlider from './GewichtSlider';
-import GroeßeSlider from './GroeßeSlider';
-import GeschlechtSelection from './GeschlechtSelection';
-import PlanSelection from './PlanSelection';
-import BewegungSelection from './BewegungSelection';
+import GewichtSlider from './signUp/GewichtSlider';
+import GroeßeSlider from './signUp/GroeßeSlider';
+import GeschlechtSelection from './signUp/GeschlechtSelection';
+import PlanSelection from './signUp/PlanSelection';
+import BewegungSelection from './signUp/BewegungSelection';
+import InputEmail from './signUp/InputEmail';
+import InputPassword from './signUp/InputPassword';
+import InputName from './signUp/InputName';
+import InputPasswordSecond from './signUp/InputPasswordSecond';
 
 type Inputs = z.infer<typeof FormDataSchema>
 
@@ -125,74 +129,29 @@ export default function Form() {
             <p className='mt-1 text-sm leading-6 text-gray-600'>
               Teile uns deine Informationen mit.
             </p>
-            <div className='mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+            <div className=''>
               <div className='sm:col-span-3'>
-                <label
-                  htmlFor='Name'
-                  className='block text-sm font-medium leading-6 text-white'
-                >
-                  Name
-                </label>
                 <div className='mt-2'>
-                  <input
-                    type='text'
-                    id='Name'
-                    {...register('Name')}
-                    autoComplete='given-name'
-                    className='block w-full rounded-md border-0 pl-2 py-1.5 text-white shadow-sm ring-1 ring-inset ring-primary-50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6'
-                  />
-                  {errors.Name?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.Name.message}
-                    </p>
-                  )}
+               <InputName/>
                 </div>
               </div>
 
               <div className='sm:col-span-3'>
-                <label
-                  htmlFor='Password'
-                  className='block text-sm font-medium leading-6 text-white'
-                >
-                  Passwort
-                </label>
+                
                 <div className='mt-2'>
-                  <input
-                    type='Password'
-                    id='Password'
-                    {...register('Password')}
-                    autoComplete='Password'
-                    className='block w-full rounded-md border-0 py-1.5 pl-2 text-white shadow-sm ring-1 ring-inset ring-primary-50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6'
-                  />
-                  {errors.Password?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.Password.message}
-                    </p>
-                  )}
+                  <InputPassword/>
+                </div>
+              </div>
+
+              <div className='sm:col-span-3'>
+                
+                <div className='mt-2'>
+                  <InputPasswordSecond/>
                 </div>
               </div>
 
               <div className='sm:col-span-4'>
-                <label
-                  htmlFor='Email'
-                  className='block text-sm font-medium leading-6 text-white'
-                >
-                  Email address
-                </label>
-                <div className='mt-2'>
-                  <input
-                    id='Email'
-                    type='Email'
-                    {...register('Email')}
-                    autoComplete='Email'
-                    className='block w-full rounded-md border-0 py-1.5 text-white pl-2 shadow-sm ring-1 ring-inset ring-primary-50 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6'
-                  />
-                  {errors.Email?.message && (
-                    <p className='mt-2 text-sm text-red-400'>
-                      {errors.Email.message}
-                    </p>
-                  )}
-                </div>
+              <InputEmail/>
               </div>
             </div>
           </motion.div>
