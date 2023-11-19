@@ -37,7 +37,7 @@ export default function App() {
       });
 
       if (!signInResponse || signInResponse.ok !== true) {
-        setMessage("Invalid credentials");
+
       } else {
         router.refresh();
       }
@@ -55,8 +55,6 @@ export default function App() {
     if (status === "authenticated") {
       router.refresh();
       router.push("/");
-    } else {
-      setMessage("Invalid credentials");
     }
   }, [status]);
 

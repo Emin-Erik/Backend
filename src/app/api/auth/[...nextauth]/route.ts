@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import NextAuth from "next-auth/next";
-import { cookies } from "next/headers";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -56,10 +55,9 @@ export const authOptions: AuthOptions = {
     signIn: "/auth/signin",
     signOut: "/auth/signout",
   },
-  secret: process.env.NEXTAUTH_SECRET,
   jwt: {
-    async encode({ secret, token }) {
-      if (!token) {
+    async encode({ secret = process.env.NEXTAUTH_SECRET , token }) {
+      if (!token || !secret) {
         throw new Error("No token to encode");
       }
       return jwt.sign(token, secret);
@@ -85,11 +83,12 @@ export const authOptions: AuthOptions = {
     async session(params: { session: Session; token: JWT; user: User }) {
       if (params.session.user) {
         params.session.user.email = params.token.email;
+        params.session.user.username = params.token.username;
+        params.session.user.role = params.token.role
       }
 
       return params.session;
     },
-
     async jwt(params: {
       token: JWT;
       user?: User | undefined;
@@ -98,18 +97,11 @@ export const authOptions: AuthOptions = {
       isNewUser?: boolean | undefined;
     }) {
       if (params.user) {
-        const email = params.user.email!;
-        const user = await prisma.user.findUnique({
-          where: {
-            email,
-          },
-        });
         params.token.email = params.user.email;
-        if (user) {
-          params.token.name = user.username;
-        }
+        params.token.username = params.user.username;
+        params.token.role = params.user.role
       }
-      cookies().set("LoggedIn", "true", { maxAge: 30 * 24 * 60 * 60 });
+
       return params.token;
     },
   },
@@ -117,4 +109,7 @@ export const authOptions: AuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export {
+  handler as GET,
+  handler as POST
+};
