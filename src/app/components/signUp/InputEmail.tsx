@@ -24,7 +24,7 @@ const App: React.FC = () => {
       color={isInvalid ? "danger" : "success"}
       errorMessage={isInvalid && "Please enter a valid email"}
       onValueChange={setValue}
-      className="max-w-xs"
+      className=""
     />
   );
 };

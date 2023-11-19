@@ -10,9 +10,10 @@ export default function App() {
 
   return (
     <Input
-      label="Password"
+      label="Passwort"
+      color="success"
       variant="bordered"
-      placeholder="Enter your password"
+      placeholder="Bestätige dein Passwort"
       endContent={
         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
           {isVisible ? (
@@ -23,7 +24,7 @@ export default function App() {
         </button>
       }
       type={isVisible ? "text" : "password"}
-      className="max-w-xs"
+      className=""
     />
   );
 }
