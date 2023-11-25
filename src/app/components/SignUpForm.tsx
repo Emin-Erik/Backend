@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Slider } from "@nextui-org/react";
+import { Button, Input, Slider } from "@nextui-org/react";
 import { z } from "zod";
 import { FormDataSchema } from "../lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,10 +12,10 @@ import GroeßeSlider from "./signUp/GroeßeSlider";
 import GeschlechtSelection from "./signUp/GeschlechtSelection";
 import PlanSelection from "./signUp/PlanSelection";
 import BewegungSelection from "./signUp/BewegungSelection";
-import InputEmail from "./signUp/InputEmail";
-import InputPassword from "./signUp/InputPassword";
-import InputName from "./signUp/InputName";
-import InputPasswordSecond from "./signUp/InputPasswordSecond";
+import React from "react";
+import { EyeSlashFilledIcon } from "./signUp/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "./signUp/EyeFilledIcon";
+import { GrFormNext } from "react-icons/gr";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -78,6 +78,14 @@ export default function Form() {
     }
   };
 
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const GrFormNextMirror = () => {
+    return <GrFormNext style={{ transform: "scaleX(-1)" }} />;
+  };
+
   return (
     <section className="absolute inset-0 flex flex-col justify-between p-24">
       {/* steps */}
@@ -116,7 +124,7 @@ export default function Form() {
       </nav>
 
       {/* Form */}
-      <form className="mt-12 py-12" onSubmit={handleSubmit(processForm)}>
+      <form className="mt-12 py-6" onSubmit={handleSubmit(processForm)}>
         {currentStep === 0 && (
           <motion.div
             initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -132,25 +140,106 @@ export default function Form() {
             <div className="lg:grid lg:place-content-around lg:grid-col-2 lg:gap-4">
               <div className="sm:col-span-1 lg:col-span-2">
                 <div className="mt-2">
-                  <InputName />
+                  <Input
+                    type="text"
+                    id="Name"
+                    {...register("Name")}
+                    color="success"
+                    variant="bordered"
+                    label="Name"
+                    placeholder="Schreibe deinen Namen rein"
+                  />
+                  {errors.Name?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Name.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-2">
                 <div className="mt-2">
-                  <InputEmail />
+                  <Input
+                    type="email"
+                    label="Email"
+                    placeholder="deineMail@.com"
+                    variant="bordered"
+                    color={"success"}
+                    id="email"
+                    {...register("Email")}
+                    autoComplete="email"
+                  />
+                  {errors.Email?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Email.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-1 lg:col-span-2">
                 <div className="mt-2">
-                  <InputPassword />
+                  <Input
+                    label="Passwort"
+                    color="success"
+                    variant="bordered"
+                    id="Password"
+                    {...register("Password")}
+                    placeholder="Gebe dein Passwort ein"
+                    endContent={
+                      <button
+                        className="focus:outline-none"
+                        type="button"
+                        onClick={toggleVisibility}
+                      >
+                        {isVisible ? (
+                          <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        ) : (
+                          <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        )}
+                      </button>
+                    }
+                    type={isVisible ? "text" : "password"}
+                    className="primary-50"
+                  />
+                  {errors.Password?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Password.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-2">
                 <div className="mt-2">
-                  <InputPasswordSecond />
+                  <Input
+                    label="Passwort bestätigen"
+                    color="success"
+                    variant="bordered"
+                    id="Password2"
+                    {...register("Password2")}
+                    placeholder="Bestätige dein Passwort ein"
+                    endContent={
+                      <button
+                        className="focus:outline-none"
+                        type="button"
+                        onClick={toggleVisibility}
+                      >
+                        {isVisible ? (
+                          <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        ) : (
+                          <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                        )}
+                      </button>
+                    }
+                    type={isVisible ? "text" : "password"}
+                    className="primary-50"
+                  />
+                  {errors.Password2?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Password2.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -170,7 +259,7 @@ export default function Form() {
               Gebe an unter welchen Vorraussetzungen du starten möchtest.
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 lg:grid lg:place-content-center lg:grid-col-2 lg:gap-4">
               <div className="sm:col-span-3">
                 <label
                   htmlFor="Geschlecht"
@@ -178,7 +267,7 @@ export default function Form() {
                 >
                   Geschlecht
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 lg:col-span-2">
                   <GeschlechtSelection />
                   {errors.Geschlecht?.message && (
                     <p className="mt-2 text-sm text-red-400">
@@ -226,48 +315,26 @@ export default function Form() {
       {/* Navigation */}
       <div className="mt-8 pt-5">
         <div className="flex justify-between">
-          <button
-            type="button"
-            onClick={prev}
-            disabled={currentStep === 0}
-            className="rounded bg-primary-50 px-2 py-1 text-sm font-semibold text-background shadow-sm ring-1 ring-inset ring-primary-foreground hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="h-6 w-6"
+          <div className="flex gap-4 items-center">
+            <Button
+              onClick={prev}
+              disabled={currentStep === 0}
+              className="bg-primary-100 text-primary-foreground"
+              startContent={<GrFormNextMirror />}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15.75 19.5L8.25 12l7.5-7.5"
-              />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={next}
-            disabled={currentStep === steps.length - 1}
-            className="rounded bg-primary-50 px-2 py-1 text-sm font-semibold text-background shadow-sm ring-1 ring-inset ring-primary-foreground hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="h-6 w-6"
+              Zurück
+            </Button>
+          </div>
+          <div className="flex gap-4 items-center">
+            <Button
+              onClick={next}
+              disabled={currentStep === steps.length - 1}
+              className="bg-primary-100 text-primary-foreground"
+              endContent={<GrFormNext />}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8.25 4.5l7.5 7.5-7.5 7.5"
-              />
-            </svg>
-          </button>
+              Weiter
+            </Button>
+          </div>
         </div>
       </div>
     </section>
