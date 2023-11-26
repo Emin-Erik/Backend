@@ -2,7 +2,15 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Button, Input, Select, SelectItem, Slider, SliderValue, Tooltip } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Slider,
+  SliderValue,
+  Tooltip,
+} from "@nextui-org/react";
 import { z } from "zod";
 import { FormDataSchema } from "../lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -82,9 +90,21 @@ export default function Form() {
   };
 
   const plan = [
-    {label: "Abnehmen", value: "Abnehmen", description: "The second most popular pet in the world"},
-    {label: "Zunehmen", value: "Zunehmen", description: "The most popular pet in the world"},
-    {label: "Gesunde Ernährung", value: "AnderGesunde Ernährunge", description: "The largest land animal"},
+    {
+      label: "Abnehmen",
+      value: "Abnehmen",
+      description: "The second most popular pet in the world",
+    },
+    {
+      label: "Zunehmen",
+      value: "Zunehmen",
+      description: "The most popular pet in the world",
+    },
+    {
+      label: "Gesunde Ernährung",
+      value: "AnderGesunde Ernährunge",
+      description: "The largest land animal",
+    },
   ];
 
   const geschlechter = [
@@ -333,140 +353,153 @@ export default function Form() {
 
               <div className="col-span-full">
                 <div className="mt-2">
-                  
-                <Slider
-      label="Kilogrammgewicht"
-      size="sm"
-      step={1}
-      maxValue={200}
-      minValue={40}
-      color="success"
-      classNames={{
-        base: "max-w-md",
-        label: "text-medium",
-      }}
-      // we extract the default children to render the input
-      renderValue={({ children, ...props }) => (
-        <output {...props}>
-          <Tooltip
-            className="text-tiny text-default-500 rounded-md"
-            content="Press Enter to confirm"
-            placement="left"
-          >
-            <input
-              className="px-1 py-0.5 w-14 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
-              type="text"
-              aria-label="Kilogrammgewicht"
-              value={`${inputValue} kg`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const v = e.target.value;
+                  <Slider
+                    label="Kilogrammgewicht"
+                    size="sm"
+                    step={1}
+                    maxValue={200}
+                    minValue={40}
+                    color="success"
+                    classNames={{
+                      base: "max-w-md",
+                      label: "text-medium",
+                    }}
+                    // we extract the default children to render the input
+                    renderValue={({ children, ...props }) => (
+                      <output {...props}>
+                        <Tooltip
+                          className="text-tiny text-default-500 rounded-md"
+                          content="Press Enter to confirm"
+                          placement="left"
+                        >
+                          <input
+                            className="px-1 py-0.5 w-14 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
+                            type="text"
+                            aria-label="Kilogrammgewicht"
+                            value={`${inputValue} kg`}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              const v = e.target.value;
 
-                setInputValue(v);
-              }}
-              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                if (e.key === "Enter" && !isNaN(Number(inputValue))) {
-                  setValue(Number(inputValue));
-                }
-              }}
-            />
-          </Tooltip>
-        </output>
-      )}
-      value={value}
-      onChange={handleChange}
-    />
+                              setInputValue(v);
+                            }}
+                            onKeyDown={(
+                              e: React.KeyboardEvent<HTMLInputElement>
+                            ) => {
+                              if (
+                                e.key === "Enter" &&
+                                !isNaN(Number(inputValue))
+                              ) {
+                                setValue(Number(inputValue));
+                              }
+                            }}
+                          />
+                        </Tooltip>
+                      </output>
+                    )}
+                    value={value}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <div className="mt-2">
-                <Slider
-      label="Körpergröße"
-      size="lg"
-      step={1}
-      maxValue={220}
-      minValue={120}
-      color="success"
-      classNames={{
-        base: "max-w-md",
-        label: "text-medium",
-      }}
-      // we extract the default children to render the input
-      renderValue={({ children, ...props }) => (
-        <output {...props}>
-          <Tooltip
-            className="text-tiny text-default-500 rounded-md"
-            content="Gebe deine Größe in cm an"
-            placement="left"
-          >
-            <input
-              className="px-1 py-0.5 w-16 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
-              type="text"
-              aria-label="Körpergröße"
-              value={`${inputValue1} cm`}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const v = e.target.value;
+                  <Slider
+                    label="Körpergröße"
+                    size="lg"
+                    step={1}
+                    maxValue={220}
+                    minValue={120}
+                    color="success"
+                    classNames={{
+                      base: "max-w-md",
+                      label: "text-medium",
+                    }}
+                    // we extract the default children to render the input
+                    renderValue={({ children, ...props }) => (
+                      <output {...props}>
+                        <Tooltip
+                          className="text-tiny text-default-500 rounded-md"
+                          content="Gebe deine Größe in cm an"
+                          placement="left"
+                        >
+                          <input
+                            className="px-1 py-0.5 w-16 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
+                            type="text"
+                            aria-label="Körpergröße"
+                            value={`${inputValue1} cm`}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              const v = e.target.value;
 
-                setInputValue(v);
-              }}
-              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                if (e.key === "Enter" && !isNaN(Number(inputValue1))) {
-                  setValue(Number(inputValue1));
-                }
-              }}
-            />
-          </Tooltip>
-        </output>
-      )}
-      value={value}
-      onChange={handleChange}
-    />
+                              setInputValue(v);
+                            }}
+                            onKeyDown={(
+                              e: React.KeyboardEvent<HTMLInputElement>
+                            ) => {
+                              if (
+                                e.key === "Enter" &&
+                                !isNaN(Number(inputValue1))
+                              ) {
+                                setValue(Number(inputValue1));
+                              }
+                            }}
+                          />
+                        </Tooltip>
+                      </output>
+                    )}
+                    value={value}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div>
                 <div className="mt-2">
-                <Select
-      isRequired
-      label="Wähle deinen Plan"
-      placeholder="Dein Plan"
-      defaultSelectedKeys={["Abnehmen"]}
-      className="max-w-xs"
-    >
-      {plan.map((plans) => (
-        <SelectItem key={plans.value} value={plans.value}>
-          {plans.label}
-        </SelectItem>
-      ))}
-    </Select>
+                  <Select
+                    isRequired
+                    label="Wähle deinen Plan"
+                    placeholder="Dein Plan"
+                    defaultSelectedKeys={["Abnehmen"]}
+                    className="max-w-xs"
+                  >
+                    {plan.map((plans) => (
+                      <SelectItem key={plans.value} value={plans.value}>
+                        {plans.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
                 </div>
               </div>
               <div className="mt-2">
-              <Slider 
-      label="Wie oft treibst du Sport" 
-      color="foreground"
-      size="lg"
-      step={1} 
-      maxValue={7}
-      showSteps={true} 
-      minValue={0}
-      marks={[
-        {
-          value: 1,
-          label: `wenig bis kaum`,
-        },
-        {
-            value: 3,
-            label: `ab und zu`,
-          },
-    
-        {
-            value: 7,
-            label: `jeden Tag`,
-          },
-      ]}
-      defaultValue={3}
-      className="max-w-lg"
-    />
+                <Slider
+                  label="Wie oft treibst du Sport"
+                  color="foreground"
+                  size="lg"
+                  step={1}
+                  maxValue={7}
+                  showSteps={true}
+                  minValue={0}
+                  marks={[
+                    {
+                      value: 1,
+                      label: `wenig bis kaum`,
+                    },
+                    {
+                      value: 3,
+                      label: `ab und zu`,
+                    },
+
+                    {
+                      value: 7,
+                      label: `jeden Tag`,
+                    },
+                  ]}
+                  defaultValue={3}
+                  className="max-w-lg"
+                />
               </div>
             </div>
           </motion.div>
