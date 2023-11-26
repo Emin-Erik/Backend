@@ -2,19 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Button, Input, Slider } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem, Slider, SliderValue, Tooltip } from "@nextui-org/react";
 import { z } from "zod";
 import { FormDataSchema } from "../lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import GewichtSlider from "./signUp/GewichtSlider";
-import GroeßeSlider from "./signUp/GroeßeSlider";
-import GeschlechtSelection from "./signUp/GeschlechtSelection";
-import PlanSelection from "./signUp/PlanSelection";
-import BewegungSelection from "./signUp/BewegungSelection";
 import React from "react";
-import { EyeSlashFilledIcon } from "./signUp/EyeSlashFilledIcon";
-import { EyeFilledIcon } from "./signUp/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import { GrFormNext } from "react-icons/gr";
 
 type Inputs = z.infer<typeof FormDataSchema>;
@@ -84,6 +79,50 @@ export default function Form() {
 
   const GrFormNextMirror = () => {
     return <GrFormNext style={{ transform: "scaleX(-1)" }} />;
+  };
+
+  const plan = [
+    {label: "Abnehmen", value: "Abnehmen", description: "The second most popular pet in the world"},
+    {label: "Zunehmen", value: "Zunehmen", description: "The most popular pet in the world"},
+    {label: "Gesunde Ernährung", value: "AnderGesunde Ernährunge", description: "The largest land animal"},
+  ];
+
+  const geschlechter = [
+    {
+      label: "Mann",
+      value: "Mann",
+      description: "The second most popular pet in the world",
+    },
+    {
+      label: "Frau",
+      value: "Frau",
+      description: "The most popular pet in the world",
+    },
+    {
+      label: "Andere",
+      value: "Andere",
+      description: "The largest land animal",
+    },
+  ];
+
+  const [value, setValue] = React.useState<SliderValue>(100);
+  const [inputValue, setInputValue] = React.useState<string>("100");
+
+  const handleChange = (value: SliderValue) => {
+    if (isNaN(Number(value))) return;
+
+    setValue(value);
+    setInputValue(value.toString());
+  };
+
+  const [value1, setValue1] = React.useState<SliderValue>(100);
+  const [inputValue1, setInputValue1] = React.useState<string>("160");
+
+  const handleChange2 = (value1: SliderValue) => {
+    if (isNaN(Number(value1))) return;
+
+    setValue(value1);
+    setInputValue(value1.toString());
   };
 
   return (
@@ -268,7 +307,22 @@ export default function Form() {
                   Geschlecht
                 </label>
                 <div className="mt-2 lg:col-span-2">
-                  <GeschlechtSelection />
+                  <Select
+                    isRequired
+                    label="Dein Geschlecht"
+                    placeholder="Wähle dein Geschlecht"
+                    defaultSelectedKeys={["Mann"]}
+                    className="max-w-xs"
+                  >
+                    {geschlechter.map((geschlecht) => (
+                      <SelectItem
+                        key={geschlecht.value}
+                        value={geschlecht.value}
+                      >
+                        {geschlecht.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
                   {errors.Geschlecht?.message && (
                     <p className="mt-2 text-sm text-red-400">
                       {errors.Geschlecht.message}
@@ -279,22 +333,140 @@ export default function Form() {
 
               <div className="col-span-full">
                 <div className="mt-2">
-                  <GewichtSlider />
+                  
+                <Slider
+      label="Kilogrammgewicht"
+      size="sm"
+      step={1}
+      maxValue={200}
+      minValue={40}
+      color="success"
+      classNames={{
+        base: "max-w-md",
+        label: "text-medium",
+      }}
+      // we extract the default children to render the input
+      renderValue={({ children, ...props }) => (
+        <output {...props}>
+          <Tooltip
+            className="text-tiny text-default-500 rounded-md"
+            content="Press Enter to confirm"
+            placement="left"
+          >
+            <input
+              className="px-1 py-0.5 w-14 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
+              type="text"
+              aria-label="Kilogrammgewicht"
+              value={`${inputValue} kg`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const v = e.target.value;
+
+                setInputValue(v);
+              }}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === "Enter" && !isNaN(Number(inputValue))) {
+                  setValue(Number(inputValue));
+                }
+              }}
+            />
+          </Tooltip>
+        </output>
+      )}
+      value={value}
+      onChange={handleChange}
+    />
                 </div>
               </div>
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <div className="mt-2">
-                  <GroeßeSlider />
+                <Slider
+      label="Körpergröße"
+      size="lg"
+      step={1}
+      maxValue={220}
+      minValue={120}
+      color="success"
+      classNames={{
+        base: "max-w-md",
+        label: "text-medium",
+      }}
+      // we extract the default children to render the input
+      renderValue={({ children, ...props }) => (
+        <output {...props}>
+          <Tooltip
+            className="text-tiny text-default-500 rounded-md"
+            content="Gebe deine Größe in cm an"
+            placement="left"
+          >
+            <input
+              className="px-1 py-0.5 w-16 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
+              type="text"
+              aria-label="Körpergröße"
+              value={`${inputValue1} cm`}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const v = e.target.value;
+
+                setInputValue(v);
+              }}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === "Enter" && !isNaN(Number(inputValue1))) {
+                  setValue(Number(inputValue1));
+                }
+              }}
+            />
+          </Tooltip>
+        </output>
+      )}
+      value={value}
+      onChange={handleChange}
+    />
                 </div>
               </div>
               <div>
                 <div className="mt-2">
-                  <PlanSelection />
+                <Select
+      isRequired
+      label="Wähle deinen Plan"
+      placeholder="Dein Plan"
+      defaultSelectedKeys={["Abnehmen"]}
+      className="max-w-xs"
+    >
+      {plan.map((plans) => (
+        <SelectItem key={plans.value} value={plans.value}>
+          {plans.label}
+        </SelectItem>
+      ))}
+    </Select>
                 </div>
               </div>
               <div className="mt-2">
-                <BewegungSelection />
+              <Slider 
+      label="Wie oft treibst du Sport" 
+      color="foreground"
+      size="lg"
+      step={1} 
+      maxValue={7}
+      showSteps={true} 
+      minValue={0}
+      marks={[
+        {
+          value: 1,
+          label: `wenig bis kaum`,
+        },
+        {
+            value: 3,
+            label: `ab und zu`,
+          },
+    
+        {
+            value: 7,
+            label: `jeden Tag`,
+          },
+      ]}
+      defaultValue={3}
+      className="max-w-lg"
+    />
               </div>
             </div>
           </motion.div>
