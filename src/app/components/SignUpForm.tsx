@@ -311,15 +311,15 @@ export default function Form() {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <h2 className="text-base font-semibold leading-7 text-white">
+            <h2 className="text-base font-semibold text-center leading-7 text-white">
               Dein Plan
             </h2>
-            <p className="mt-1 text-sm leading-6 text-white">
+            <p className="mt-1 mb-8 text-sm text-center leading-6 text-gray-600">
               Gebe an unter welchen Vorraussetzungen du starten möchtest.
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 lg:grid lg:place-content-center lg:grid-col-2 lg:gap-4">
-              <div className="sm:col-span-3">
+            <div className="lg:grid lg:place-content-center lg:ml-44 lg:grid-cols-4 lg:gap-12 lg:mt-20">
+              <div className="sm:col-span-3 lg:col-span-2">
                 <label
                   htmlFor="Geschlecht"
                   className="block text-sm font-medium leading-6 text-white"
@@ -328,11 +328,13 @@ export default function Form() {
                 </label>
                 <div className="mt-2 lg:col-span-2">
                   <Select
+                    id="Geschlecht"
+                    {...register("Geschlecht")}
                     isRequired
                     label="Dein Geschlecht"
                     placeholder="Wähle dein Geschlecht"
                     defaultSelectedKeys={["Mann"]}
-                    className="max-w-xs"
+                    className=""
                   >
                     {geschlechter.map((geschlecht) => (
                       <SelectItem
@@ -351,9 +353,11 @@ export default function Form() {
                 </div>
               </div>
 
-              <div className="col-span-full">
-                <div className="mt-2">
+              <div className="">
+                <div className="mt-2 lg:col-span-2">
                   <Slider
+                    id="Gewicht"
+                    {...register("Gewicht")}
                     label="Kilogrammgewicht"
                     size="sm"
                     step={1}
@@ -401,12 +405,19 @@ export default function Form() {
                     value={value}
                     onChange={handleChange}
                   />
+                  {errors.Gewicht?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Gewicht.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-2 sm:col-start-1">
                 <div className="mt-2">
                   <Slider
+                    id="Groeße"
+                    {...register("Groeße")}
                     label="Körpergröße"
                     size="lg"
                     step={1}
@@ -454,11 +465,18 @@ export default function Form() {
                     value={value}
                     onChange={handleChange}
                   />
+                  {errors.Groeße?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Groeße.message}
+                    </p>
+                  )}
                 </div>
               </div>
               <div>
                 <div className="mt-2">
                   <Select
+                    id="Plan"
+                    {...register("Plan")}
                     isRequired
                     label="Wähle deinen Plan"
                     placeholder="Dein Plan"
@@ -471,9 +489,14 @@ export default function Form() {
                       </SelectItem>
                     ))}
                   </Select>
+                  {errors.Plan?.message && (
+                    <p className="mt-2 text-sm text-red-400">
+                      {errors.Plan.message}
+                    </p>
+                  )}
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 lg:col-span-2">
                 <Slider
                   label="Wie oft treibst du Sport"
                   color="foreground"
@@ -491,7 +514,6 @@ export default function Form() {
                       value: 3,
                       label: `ab und zu`,
                     },
-
                     {
                       value: 7,
                       label: `jeden Tag`,
@@ -499,7 +521,18 @@ export default function Form() {
                   ]}
                   defaultValue={3}
                   className="max-w-lg"
+                  id="Aktivitaet"
+                  {...register("Aktivitaet")}
+                  onChange={(value) => {
+                    // Handle the value change here
+                    console.log("Slider value changed:", value);
+                  }}
                 />
+                {errors.Aktivitaet?.message && (
+                  <p className="mt-2 text-sm text-red-400">
+                    {errors.Aktivitaet.message}
+                  </p>
+                )}
               </div>
             </div>
           </motion.div>
@@ -507,12 +540,13 @@ export default function Form() {
 
         {currentStep === 2 && (
           <>
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
+            <h2 className="text-base font-semibold text-center leading-7 text-white">
               Complete
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="mt-1 mb-8 text-sm text-center leading-6 text-gray-600">
               Thank you for your submission.
             </p>
+            <p></p>
           </>
         )}
       </form>

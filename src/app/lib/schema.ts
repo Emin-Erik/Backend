@@ -8,9 +8,9 @@ export const FormDataSchema = z.object({
     .string()
     .min(1, "Eine Email Adresse wird benötigt")
     .email("Invalid email address"),
-  Geschlecht: z.string().min(1, "Country is required"),
-  Gewicht: z.string().min(1, "Street is required"),
-  Groeße: z.string().min(1, "City is required"),
-  Plan: z.string().min(1, "State is required"),
-  zip: z.string().min(1, "Zip is required"),
+  Geschlecht: z.string().min(1, "Geschlecht is required"),
+  Gewicht: z.string().min(1, "Gewicht is required"),
+  Groeße: z.string().min(1, "Groeße is required"),
+  Plan: z.string().min(1, "Plan is required"),
+  Aktivitaet: z.string().min(1, "Aktivitaet is required"),
 });
