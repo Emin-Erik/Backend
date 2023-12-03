@@ -52,6 +52,9 @@ export default function Form() {
     resolver: zodResolver(FormDataSchema),
   });
 
+  // Watch the password field to compare it with the password confirmation
+  const password = watch("Password");
+
   const processForm: SubmitHandler<Inputs> = (data) => {
     console.log(data);
     reset();
@@ -545,14 +548,26 @@ export default function Form() {
             </Button>
           </div>
           <div className="flex gap-4 items-center">
-            <Button
-              onClick={next}
-              disabled={currentStep === steps.length - 1}
-              className="bg-primary-100 text-primary-foreground"
-              endContent={<GrFormNext />}
-            >
-              Weiter
-            </Button>
+            {currentStep < steps.length - 1 ? (
+              <Button
+                onClick={next}
+                className="bg-primary-100 text-primary-foreground"
+                endContent={<GrFormNext />}
+              >
+                Weiter
+              </Button>
+            ) : (
+              <Button
+                onClick={() =>
+                  (window.location.href =
+                    "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                }
+                className="bg-primary-100 text-primary-foreground"
+                endContent={<GrFormNext />}
+              >
+                Finish
+              </Button>
+            )}
           </div>
         </div>
       </div>
