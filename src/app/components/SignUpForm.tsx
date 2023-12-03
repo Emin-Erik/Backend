@@ -304,7 +304,7 @@ export default function Form() {
             </div>
           </motion.div>
         )}
-
+        {/* ------------------------------------------------ SEITE 2 ------------------------------------------------------------------------- */}
         {currentStep === 1 && (
           <motion.div
             initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
@@ -318,15 +318,9 @@ export default function Form() {
               Gebe an unter welchen Vorraussetzungen du starten möchtest.
             </p>
 
-            <div className="lg:grid lg:place-content-center lg:ml-44 lg:grid-cols-4 lg:gap-12 lg:mt-20">
-              <div className="sm:col-span-3 lg:col-span-2">
-                <label
-                  htmlFor="Geschlecht"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Geschlecht
-                </label>
-                <div className="mt-2 lg:col-span-2">
+            <div className="flex flex-col w-3/4 max-w-2xl mx-auto">
+              <div className="sm:col-span-3">
+                <div className="mt-2 flex justify-center items-center">
                   <Select
                     id="Geschlecht"
                     {...register("Geschlecht")}
@@ -334,7 +328,7 @@ export default function Form() {
                     label="Dein Geschlecht"
                     placeholder="Wähle dein Geschlecht"
                     defaultSelectedKeys={["Mann"]}
-                    className=""
+                    className="max-w-lg"
                   >
                     {geschlechter.map((geschlecht) => (
                       <SelectItem
@@ -353,8 +347,31 @@ export default function Form() {
                 </div>
               </div>
 
+              <div className="mt-4 flex justify-center items-center">
+                <Select
+                  id="Plan"
+                  {...register("Plan")}
+                  isRequired
+                  label="Wähle deinen Plan"
+                  placeholder="Dein Plan"
+                  defaultSelectedKeys={["Abnehmen"]}
+                  className="max-w-lg"
+                >
+                  {plan.map((plans) => (
+                    <SelectItem key={plans.value} value={plans.value}>
+                      {plans.label}
+                    </SelectItem>
+                  ))}
+                </Select>
+                {errors.Plan?.message && (
+                  <p className="mt-2 text-sm text-red-400">
+                    {errors.Plan.message}
+                  </p>
+                )}
+              </div>
+
               <div className="">
-                <div className="mt-2 lg:col-span-2">
+                <div className="mt-4 flex justify-center items-center">
                   <Slider
                     id="Gewicht"
                     {...register("Gewicht")}
@@ -365,7 +382,7 @@ export default function Form() {
                     minValue={40}
                     color="success"
                     classNames={{
-                      base: "max-w-md",
+                      base: "max-w-lg",
                       label: "text-medium",
                     }}
                     // we extract the default children to render the input
@@ -382,17 +399,17 @@ export default function Form() {
                             aria-label="Kilogrammgewicht"
                             value={`${inputValue} kg`}
                             onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
+                              x: React.ChangeEvent<HTMLInputElement>
                             ) => {
-                              const v = e.target.value;
+                              const v = x.target.value;
 
                               setInputValue(v);
                             }}
                             onKeyDown={(
-                              e: React.KeyboardEvent<HTMLInputElement>
+                              x: React.KeyboardEvent<HTMLInputElement>
                             ) => {
                               if (
-                                e.key === "Enter" &&
+                                x.key === "Enter" &&
                                 !isNaN(Number(inputValue))
                               ) {
                                 setValue(Number(inputValue));
@@ -414,7 +431,7 @@ export default function Form() {
               </div>
 
               <div className="sm:col-span-2 sm:col-start-1">
-                <div className="mt-2">
+                <div className="mt-4 flex justify-center items-center">
                   <Slider
                     id="Groeße"
                     {...register("Groeße")}
@@ -425,7 +442,7 @@ export default function Form() {
                     minValue={120}
                     color="success"
                     classNames={{
-                      base: "max-w-md",
+                      base: "max-w-lg",
                       label: "text-medium",
                     }}
                     // we extract the default children to render the input
@@ -472,31 +489,7 @@ export default function Form() {
                   )}
                 </div>
               </div>
-              <div>
-                <div className="mt-2">
-                  <Select
-                    id="Plan"
-                    {...register("Plan")}
-                    isRequired
-                    label="Wähle deinen Plan"
-                    placeholder="Dein Plan"
-                    defaultSelectedKeys={["Abnehmen"]}
-                    className="max-w-xs"
-                  >
-                    {plan.map((plans) => (
-                      <SelectItem key={plans.value} value={plans.value}>
-                        {plans.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                  {errors.Plan?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.Plan.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div className="mt-2 lg:col-span-2">
+              <div className="mt-4 flex justify-center items-center">
                 <Slider
                   label="Wie oft treibst du Sport"
                   color="foreground"
@@ -537,7 +530,6 @@ export default function Form() {
             </div>
           </motion.div>
         )}
-
         {currentStep === 2 && (
           <>
             <h2 className="text-base font-semibold text-center leading-7 text-white">
@@ -546,7 +538,6 @@ export default function Form() {
             <p className="mt-1 mb-8 text-sm text-center leading-6 text-gray-600">
               Thank you for your submission.
             </p>
-            <p></p>
           </>
         )}
       </form>
