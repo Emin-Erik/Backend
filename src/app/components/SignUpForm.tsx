@@ -26,7 +26,7 @@ const steps = [
   {
     id: "Step 1",
     name: "Meine Informationen",
-    fields: ["Name", "Email", "Password"],
+    fields: ["Name", "Email", "Password", "Password2"],
   },
   {
     id: "Step 2",
@@ -52,12 +52,8 @@ export default function Form() {
     resolver: zodResolver(FormDataSchema),
   });
 
-  // Watch the password field to compare it with the password confirmation
-  const password = watch("Password");
-
-  const processForm: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    reset();
+  const processForm = (data: Inputs) => {
+    console.log("IT WORKED", data);
   };
 
   type FieldName = keyof Inputs;
@@ -559,8 +555,7 @@ export default function Form() {
             ) : (
               <Button
                 onClick={() =>
-                  (window.location.href =
-                    "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+                  (window.location.href = "localhost:3000/auth/signup")
                 }
                 className="bg-primary-100 text-primary-foreground"
                 endContent={<GrFormNext />}
