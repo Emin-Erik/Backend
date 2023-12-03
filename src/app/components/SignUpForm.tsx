@@ -126,23 +126,23 @@ export default function Form() {
   ];
 
   const [value, setValue] = React.useState<SliderValue>(100);
-  const [inputValue, setInputValue] = React.useState<string>("100");
+  const [weight, setWeight] = React.useState<string>("100");
 
-  const handleChange = (value: SliderValue) => {
-    if (isNaN(Number(value))) return;
+  const handleChange = (newValue: SliderValue) => {
+    if (isNaN(Number(newValue))) return;
 
-    setValue(value);
-    setInputValue(value.toString());
+    setValue(newValue);
+    setWeight(newValue.toString());
   };
 
   const [value1, setValue1] = React.useState<SliderValue>(100);
-  const [inputValue1, setInputValue1] = React.useState<string>("160");
+  const [height, setHeight] = React.useState<string>("160");
 
-  const handleChange2 = (value1: SliderValue) => {
-    if (isNaN(Number(value1))) return;
+  const handleChange1 = (newValue1: SliderValue) => {
+    if (isNaN(Number(newValue1))) return;
 
-    setValue(value1);
-    setInputValue(value1.toString());
+    setValue1(newValue1);
+    setHeight(newValue1.toString());
   };
 
   return (
@@ -397,22 +397,17 @@ export default function Form() {
                             className="px-1 py-0.5 w-14 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
                             type="text"
                             aria-label="Kilogrammgewicht"
-                            value={`${inputValue} kg`}
-                            onChange={(
-                              x: React.ChangeEvent<HTMLInputElement>
-                            ) => {
-                              const v = x.target.value;
-
-                              setInputValue(v);
+                            value={`${weight} kg`}
+                            onChange={(event) => {
+                              const value = event.target.value;
+                              setWeight(value);
                             }}
-                            onKeyDown={(
-                              x: React.KeyboardEvent<HTMLInputElement>
-                            ) => {
+                            onKeyDown={(event) => {
                               if (
-                                x.key === "Enter" &&
-                                !isNaN(Number(inputValue))
+                                event.key === "Enter" &&
+                                !isNaN(Number(weight))
                               ) {
-                                setValue(Number(inputValue));
+                                // Logik für Gewicht
                               }
                             }}
                           />
@@ -457,30 +452,24 @@ export default function Form() {
                             className="px-1 py-0.5 w-16 text-right text-small text-default-700 font-medium bg-default-100 outline-none transition-colors rounded-small border-medium border-transparent hover:border-primary focus:border-primary"
                             type="text"
                             aria-label="Körpergröße"
-                            value={`${inputValue1} cm`}
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) => {
-                              const v = e.target.value;
-
-                              setInputValue(v);
+                            value={`${height} cm`}
+                            onChange={(event) => {
+                              const value = event.target.value;
+                              setHeight(value);
                             }}
-                            onKeyDown={(
-                              e: React.KeyboardEvent<HTMLInputElement>
-                            ) => {
+                            onKeyDown={(event) => {
                               if (
-                                e.key === "Enter" &&
-                                !isNaN(Number(inputValue1))
+                                event.key === "Enter" &&
+                                !isNaN(Number(height))
                               ) {
-                                setValue(Number(inputValue1));
                               }
                             }}
                           />
                         </Tooltip>
                       </output>
                     )}
-                    value={value}
-                    onChange={handleChange}
+                    value={value1}
+                    onChange={handleChange1}
                   />
                   {errors.Groeße?.message && (
                     <p className="mt-2 text-sm text-red-400">
@@ -491,7 +480,7 @@ export default function Form() {
               </div>
               <div className="mt-4 flex justify-center items-center">
                 <Slider
-                  label="Wie oft treibst du Sport"
+                  label="Wie oft treibst du Sport ?"
                   color="foreground"
                   size="lg"
                   step={1}
@@ -501,18 +490,18 @@ export default function Form() {
                   marks={[
                     {
                       value: 1,
-                      label: `wenig bis kaum`,
+                      label: `kaum`,
                     },
                     {
-                      value: 3,
-                      label: `ab und zu`,
+                      value: 4,
+                      label: `manchmal`,
                     },
                     {
                       value: 7,
-                      label: `jeden Tag`,
+                      label: `sehr oft`,
                     },
                   ]}
-                  defaultValue={3}
+                  defaultValue={1}
                   className="max-w-lg"
                   id="Aktivitaet"
                   {...register("Aktivitaet")}
