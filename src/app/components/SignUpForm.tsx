@@ -26,7 +26,7 @@ const steps = [
   {
     id: "Step 1",
     name: "Meine Informationen",
-    fields: ["Name", "Email", "Password", "Password2"],
+    fields: ["Name", "Email", "Password", "confirmPassword"],
   },
   {
     id: "Step 2",
@@ -274,8 +274,8 @@ export default function Form() {
                     label="Passwort bestätigen"
                     color="success"
                     variant="bordered"
-                    id="Password2"
-                    {...register("Password2")}
+                    id="confirmPassword"
+                    {...register("confirmPassword")}
                     placeholder="Bestätige dein Passwort ein"
                     endContent={
                       <button
@@ -293,9 +293,9 @@ export default function Form() {
                     type={isVisible ? "text" : "password"}
                     className="primary-50"
                   />
-                  {errors.Password2?.message && (
+                  {errors.confirmPassword?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Password2.message}
+                      {errors.confirmPassword.message}
                     </p>
                   )}
                 </div>
@@ -518,13 +518,14 @@ export default function Form() {
             </div>
           </motion.div>
         )}
+        {/* ------------------------------------------------ SEITE 3 (ENDE) ------------------------------------------------------------------------- */}
         {currentStep === 2 && (
           <>
             <h2 className="text-base font-semibold text-center leading-7 text-white">
-              Complete
+              Infomrationen übergeben.
             </h2>
             <p className="mt-1 mb-8 text-sm text-center leading-6 text-gray-600">
-              Thank you for your submission.
+              Danke, du hast dich erfolgreich registiert!
             </p>
           </>
         )}
@@ -554,9 +555,7 @@ export default function Form() {
               </Button>
             ) : (
               <Button
-                onClick={() =>
-                  (window.location.href = "localhost:3000/auth/signup")
-                }
+                onClick={() => (window.location.href = "localhost:3000")}
                 className="bg-primary-100 text-primary-foreground"
                 endContent={<GrFormNext />}
               >
