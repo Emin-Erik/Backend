@@ -19,6 +19,8 @@ import React from "react";
 import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import { GrFormNext } from "react-icons/gr";
+import Lottie from "react-lottie";
+import animation from "./signUp_images/animation.json";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -33,8 +35,18 @@ const steps = [
     name: "Mein Plan",
     fields: ["geschlecht", "gewicht", "groeße", "plan", "zeit"],
   },
-  { id: "Step 3", name: "Complete" },
+  { id: "Step 3", name: "Bestätigen & Anmelden" },
 ];
+
+// Lottie-Optionen
+const defaultOptions = {
+  loop: false,
+  autoplay: true,
+  animationData: animation,
+  rendererSettings: {
+    preserveAspectRatio: "xMidYMid slice",
+  },
+};
 
 export default function Form() {
   const [previousStep, setPreviousStep] = useState(0);
@@ -203,7 +215,7 @@ export default function Form() {
                     {...register("name")}
                     color="success"
                     variant="bordered"
-                    label="name"
+                    label="Name"
                     placeholder="Schreibe deinen Namen rein"
                   />
                 </div>
@@ -218,7 +230,7 @@ export default function Form() {
                   )}
                   <Input
                     type="email"
-                    label="email"
+                    label="Email"
                     placeholder="deineMail@.com"
                     variant="bordered"
                     color={"success"}
@@ -524,12 +536,18 @@ export default function Form() {
         {/* ------------------------------------------------ SEITE 3 (ENDE) ------------------------------------------------------------------------- */}
         {currentStep === 2 && (
           <>
-            <h2 className="text-base font-semibold text-center leading-7 text-white">
-              Infomrationen übergeben.
-            </h2>
-            <p className="mt-1 mb-8 text-sm text-center leading-6 text-gray-600">
-              Danke, du hast dich erfolgreich registiert!
-            </p>
+            <Lottie options={defaultOptions} height={300} width={300} />
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="mt-10 text-2xl font-semibold text-center leading-normal text-white">
+                Glückwunsch zur erfolgreichen Registrierung bei{" "}
+                <span className="font-bold">Axiom</span> !
+              </h2>
+              <p className="mt-5 mb-8 text-md text-center leading-relaxed text-primary-50">
+                Um deine Registrierung abzuschließen, bestätige bitte deine
+                E-Mail-Adresse. Eine Bestätigungs-E-Mail wurde soeben an dich
+                versendet.
+              </p>
+            </div>
           </>
         )}
       </form>
@@ -562,7 +580,7 @@ export default function Form() {
                 className="bg-primary-100 text-primary-foreground"
                 endContent={<GrFormNext />}
               >
-                Finish
+                Anmelden
               </Button>
             )}
           </div>
