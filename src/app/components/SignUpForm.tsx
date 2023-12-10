@@ -18,9 +18,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import React from "react";
 import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
-import { GrFormNext } from "react-icons/gr";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import animation from "./signUp_images/animation.json";
+import { GrFormNext } from "react-icons/gr";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -37,16 +37,6 @@ const steps = [
   },
   { id: "Step 3", name: "Bestätigen & Anmelden" },
 ];
-
-// Lottie-Optionen
-const defaultOptions = {
-  loop: false,
-  autoplay: true,
-  animationData: animation,
-  rendererSettings: {
-    preserveAspectRatio: "xMidYMid slice",
-  },
-};
 
 export default function Form() {
   const [previousStep, setPreviousStep] = useState(0);
@@ -536,7 +526,12 @@ export default function Form() {
         {/* ------------------------------------------------ SEITE 3 (ENDE) ------------------------------------------------------------------------- */}
         {currentStep === 2 && (
           <>
-            <Lottie options={defaultOptions} height={300} width={300} />
+            <Lottie
+              animationData={animation}
+              height={300}
+              width={300}
+              loop={false}
+            />
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="mt-10 text-2xl font-semibold text-center leading-normal text-white">
                 Glückwunsch zur erfolgreichen Registrierung bei{" "}
