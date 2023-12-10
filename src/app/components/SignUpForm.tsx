@@ -192,6 +192,11 @@ export default function Form() {
             <div className="lg:grid lg:place-content-around lg:grid-col-2 lg:gap-4">
               <div className="sm:col-span-1 lg:col-span-2">
                 <div className="mt-2">
+                  {errors.name?.message && (
+                    <p className="ml-2 mb-2 mt-2 text-sm text-red-400">
+                      {errors.name.message}
+                    </p>
+                  )}
                   <Input
                     type="text"
                     id="name"
@@ -201,16 +206,16 @@ export default function Form() {
                     label="name"
                     placeholder="Schreibe deinen Namen rein"
                   />
-                  {errors.name?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.name.message}
-                    </p>
-                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-2">
                 <div className="mt-2">
+                  {errors.email?.message && (
+                    <p className="ml-2 mb-2 mt-2 text-sm text-red-400">
+                      {errors.email.message}
+                    </p>
+                  )}
                   <Input
                     type="email"
                     label="email"
@@ -221,16 +226,16 @@ export default function Form() {
                     {...register("email")}
                     autoComplete="email"
                   />
-                  {errors.email?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.email.message}
-                    </p>
-                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-1 lg:col-span-2">
                 <div className="mt-2">
+                  {errors.password?.message && (
+                    <p className="ml-2 mb-2 mt-2 text-sm text-red-400">
+                      {errors.password.message}
+                    </p>
+                  )}
                   <Input
                     label="Passwort"
                     color="success"
@@ -254,16 +259,16 @@ export default function Form() {
                     type={isVisible ? "text" : "password"}
                     className="primary-50"
                   />
-                  {errors.password?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.password.message}
-                    </p>
-                  )}
                 </div>
               </div>
 
               <div className="sm:col-span-2">
                 <div className="mt-2">
+                  {errors.confirmPassword?.message && (
+                    <p className="ml-2 mb-2 mt-2 text-sm text-red-400">
+                      {errors.confirmPassword.message}
+                    </p>
+                  )}
                   <Input
                     label="Passwort bestätigen"
                     color="success"
@@ -287,11 +292,6 @@ export default function Form() {
                     type={isVisible ? "text" : "password"}
                     className="primary-50"
                   />
-                  {errors.confirmPassword?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.confirmPassword.message}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
@@ -314,51 +314,60 @@ export default function Form() {
             <div className="flex flex-col w-3/4 max-w-2xl mx-auto">
               <div className="sm:col-span-3">
                 <div className="mt-2 flex justify-center items-center">
-                  <Select
-                    id="geschlecht"
-                    {...register("geschlecht")}
-                    isRequired
-                    label="Dein Geschlecht"
-                    placeholder="Wähle dein Geschlecht"
-                    className="max-w-lg"
-                  >
-                    {geschlechter.map((geschlecht) => (
-                      <SelectItem
-                        key={geschlecht.value}
-                        value={geschlecht.value}
-                      >
-                        {geschlecht.label}
-                      </SelectItem>
-                    ))}
-                  </Select>
-                  {errors.geschlecht?.message && (
-                    <p className="mt-2 text-sm text-red-400">
-                      {errors.geschlecht.message}
-                    </p>
-                  )}
+                  <div className="flex flex-col w-full max-w-lg">
+                    {/* Fehlermeldung */}
+                    {errors.geschlecht?.message && (
+                      <p className="text-sm ml-2 text-red-400 mb-2">
+                        {errors.geschlecht.message}
+                      </p>
+                    )}
+
+                    {/* Select-Element */}
+                    <Select
+                      id="geschlecht"
+                      {...register("geschlecht")}
+                      isRequired
+                      label="Dein Geschlecht"
+                      placeholder="Wähle dein Geschlecht"
+                    >
+                      {geschlechter.map((geschlecht) => (
+                        <SelectItem
+                          key={geschlecht.value}
+                          value={geschlecht.value}
+                        >
+                          {geschlecht.label}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
                 </div>
               </div>
 
               <div className="mt-4 flex justify-center items-center">
-                <Select
-                  id="plan"
-                  {...register("plan")}
-                  isRequired
-                  label="Wähle deinen Plan"
-                  placeholder="Dein Plan"
-                  className="max-w-lg"
-                >
-                  {plan.map((plans) => (
-                    <SelectItem key={plans.value} value={plans.value}>
-                      {plans.label}
-                    </SelectItem>
-                  ))}
-                </Select>
-                {errors.plan?.message && (
-                  <p className="mt-2 text-sm text-red-400">
-                    {errors.plan.message}
-                  </p>
-                )}
+                {/* Flex-Container für Select und Fehlermeldung */}
+                <div className="flex flex-col w-full max-w-lg">
+                  {/* Fehlermeldung oberhalb des Select-Elements */}
+                  {errors.plan?.message && (
+                    <p className="text-sm text-red-400 ml-2 mb-2">
+                      {errors.plan.message}
+                    </p>
+                  )}
+
+                  {/* Select-Element */}
+                  <Select
+                    id="plan"
+                    {...register("plan")}
+                    isRequired
+                    label="Wähle deinen Plan"
+                    placeholder="Dein Plan"
+                  >
+                    {plan.map((plans) => (
+                      <SelectItem key={plans.value} value={plans.value}>
+                        {plans.label}
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </div>
               </div>
 
               <div className="">
