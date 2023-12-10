@@ -10,14 +10,14 @@ export const FormDataSchema = z
     Email: z
       .string()
       .min(1, "Eine Email Adresse wird benötigt")
-      .email("Invalid email address"),
-    Geschlecht: z.string().min(1, "Geschlecht is required"),
-    Gewicht: z.string().min(40, "Gewicht is required"),
-    Groeße: z.string().min(150, "Groeße is required"),
-    Plan: z.string().min(1, "Plan is required"),
-    Aktivitaet: z.string().min(1, "Aktivitaet is required"),
+      .email("Unügltige Email Adresse"),
+    Geschlecht: z.string().min(1, "Eine Geschlechtsangabe wird benötigt"),
+    Gewicht: z.string().min(1, "Eine Geschlechtsangabe wird benötigt"),
+    Groeße: z.string().min(1, "Eine Größenangabe wird benötigt"),
+    Plan: z.string().min(1, "Ein Plan muss ausgewählt werden"),
+    Aktivitaet: z.string().min(1, "Ein Aktivitätslevel muss angegeben werden"),
   })
   .refine((data) => data.Password === data.confirmPassword, {
-    message: "Passwörter müssen übereinstimmen",
+    message: "Passwörter sind nicht gleich, diese müssen übereinstimmen",
     path: ["confirmPassword"],
   });

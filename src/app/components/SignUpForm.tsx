@@ -134,8 +134,8 @@ export default function Form() {
     setWeight(newValue.toString());
   };
 
-  const [value1, setValue1] = React.useState<SliderValue>(100);
-  const [height, setHeight] = React.useState<string>("160");
+  const [value1, setValue1] = React.useState<SliderValue>(180);
+  const [height, setHeight] = React.useState<string>("180");
 
   const handleChange1 = (newValue1: SliderValue) => {
     if (isNaN(Number(newValue1))) return;
@@ -326,7 +326,6 @@ export default function Form() {
                     isRequired
                     label="Dein Geschlecht"
                     placeholder="Wähle dein Geschlecht"
-                    defaultSelectedKeys={["Mann"]}
                     className="max-w-lg"
                   >
                     {geschlechter.map((geschlecht) => (
@@ -353,7 +352,6 @@ export default function Form() {
                   isRequired
                   label="Wähle deinen Plan"
                   placeholder="Dein Plan"
-                  defaultSelectedKeys={["Abnehmen"]}
                   className="max-w-lg"
                 >
                   {plan.map((plans) => (
@@ -377,8 +375,9 @@ export default function Form() {
                     label="Kilogrammgewicht"
                     size="sm"
                     step={1}
-                    maxValue={200}
+                    maxValue={240}
                     minValue={40}
+                    defaultValue={100}
                     color="success"
                     classNames={{
                       base: "max-w-lg",
@@ -434,6 +433,7 @@ export default function Form() {
                     step={1}
                     maxValue={220}
                     minValue={120}
+                    defaultValue={160}
                     color="success"
                     classNames={{
                       base: "max-w-lg",
