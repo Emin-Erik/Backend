@@ -120,6 +120,11 @@ export default function Form() {
     },
   ];
 
+  const style = {
+    height: 300,
+    width: 300,
+  };
+
   const [value, setValue] = React.useState<SliderValue>(100);
   const [weight, setWeight] = React.useState<string>("100");
 
@@ -526,18 +531,21 @@ export default function Form() {
         {/* ------------------------------------------------ SEITE 3 (ENDE) ------------------------------------------------------------------------- */}
         {currentStep === 2 && (
           <>
-            <Lottie
-              animationData={animation}
-              height={300}
-              width={300}
-              loop={false}
-            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Lottie animationData={animation} style={style} loop={false} />
+            </div>
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="mt-10 text-2xl font-semibold text-center leading-normal text-white">
                 Glückwunsch zur erfolgreichen Registrierung bei{" "}
-                <span className="font-bold">Axiom</span> !
+                <span className="font-bold">Axiom</span>!
               </h2>
-              <p className="mt-5 mb-8 text-md text-center leading-relaxed text-primary-50">
+              <p className="mt-5 mb-8 text-md text-center leading-relaxed text-gray-500">
                 Um deine Registrierung abzuschließen, bestätige bitte deine
                 E-Mail-Adresse. Eine Bestätigungs-E-Mail wurde soeben an dich
                 versendet.
