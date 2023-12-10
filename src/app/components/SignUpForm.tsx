@@ -26,12 +26,12 @@ const steps = [
   {
     id: "Step 1",
     name: "Meine Informationen",
-    fields: ["Name", "Email", "Password", "confirmPassword"],
+    fields: ["name", "email", "password", "confirmPassword"],
   },
   {
     id: "Step 2",
     name: "Mein Plan",
-    fields: ["Geschlecht", "Gewicht", "Groeße", "Plan", "Zeit"],
+    fields: ["geschlecht", "gewicht", "groeße", "plan", "zeit"],
   },
   { id: "Step 3", name: "Complete" },
 ];
@@ -92,17 +92,14 @@ export default function Form() {
     {
       label: "Abnehmen",
       value: "Abnehmen",
-      description: "The second most popular pet in the world",
     },
     {
       label: "Zunehmen",
       value: "Zunehmen",
-      description: "The most popular pet in the world",
     },
     {
       label: "Gesunde Ernährung",
-      value: "AnderGesunde Ernährunge",
-      description: "The largest land animal",
+      value: "Ander Gesunde Ernährunge",
     },
   ];
 
@@ -110,17 +107,14 @@ export default function Form() {
     {
       label: "Mann",
       value: "Mann",
-      description: "The second most popular pet in the world",
     },
     {
       label: "Frau",
       value: "Frau",
-      description: "The most popular pet in the world",
     },
     {
       label: "Andere",
       value: "Andere",
-      description: "The largest land animal",
     },
   ];
 
@@ -200,16 +194,16 @@ export default function Form() {
                 <div className="mt-2">
                   <Input
                     type="text"
-                    id="Name"
-                    {...register("Name")}
+                    id="name"
+                    {...register("name")}
                     color="success"
                     variant="bordered"
-                    label="Name"
+                    label="name"
                     placeholder="Schreibe deinen Namen rein"
                   />
-                  {errors.Name?.message && (
+                  {errors.name?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Name.message}
+                      {errors.name.message}
                     </p>
                   )}
                 </div>
@@ -219,17 +213,17 @@ export default function Form() {
                 <div className="mt-2">
                   <Input
                     type="email"
-                    label="Email"
+                    label="email"
                     placeholder="deineMail@.com"
                     variant="bordered"
                     color={"success"}
                     id="email"
-                    {...register("Email")}
+                    {...register("email")}
                     autoComplete="email"
                   />
-                  {errors.Email?.message && (
+                  {errors.email?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Email.message}
+                      {errors.email.message}
                     </p>
                   )}
                 </div>
@@ -241,8 +235,8 @@ export default function Form() {
                     label="Passwort"
                     color="success"
                     variant="bordered"
-                    id="Password"
-                    {...register("Password")}
+                    id="password"
+                    {...register("password")}
                     placeholder="Gebe dein Passwort ein"
                     endContent={
                       <button
@@ -260,9 +254,9 @@ export default function Form() {
                     type={isVisible ? "text" : "password"}
                     className="primary-50"
                   />
-                  {errors.Password?.message && (
+                  {errors.password?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Password.message}
+                      {errors.password.message}
                     </p>
                   )}
                 </div>
@@ -321,8 +315,8 @@ export default function Form() {
               <div className="sm:col-span-3">
                 <div className="mt-2 flex justify-center items-center">
                   <Select
-                    id="Geschlecht"
-                    {...register("Geschlecht")}
+                    id="geschlecht"
+                    {...register("geschlecht")}
                     isRequired
                     label="Dein Geschlecht"
                     placeholder="Wähle dein Geschlecht"
@@ -337,9 +331,9 @@ export default function Form() {
                       </SelectItem>
                     ))}
                   </Select>
-                  {errors.Geschlecht?.message && (
+                  {errors.geschlecht?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Geschlecht.message}
+                      {errors.geschlecht.message}
                     </p>
                   )}
                 </div>
@@ -347,8 +341,8 @@ export default function Form() {
 
               <div className="mt-4 flex justify-center items-center">
                 <Select
-                  id="Plan"
-                  {...register("Plan")}
+                  id="plan"
+                  {...register("plan")}
                   isRequired
                   label="Wähle deinen Plan"
                   placeholder="Dein Plan"
@@ -360,9 +354,9 @@ export default function Form() {
                     </SelectItem>
                   ))}
                 </Select>
-                {errors.Plan?.message && (
+                {errors.plan?.message && (
                   <p className="mt-2 text-sm text-red-400">
-                    {errors.Plan.message}
+                    {errors.plan.message}
                   </p>
                 )}
               </div>
@@ -370,8 +364,8 @@ export default function Form() {
               <div className="">
                 <div className="mt-4 flex justify-center items-center">
                   <Slider
-                    id="Gewicht"
-                    {...register("Gewicht")}
+                    id="gewicht"
+                    {...register("gewicht")}
                     label="Kilogrammgewicht"
                     size="sm"
                     step={1}
@@ -415,9 +409,9 @@ export default function Form() {
                     value={value}
                     onChange={handleChange}
                   />
-                  {errors.Gewicht?.message && (
+                  {errors.gewicht?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Gewicht.message}
+                      {errors.gewicht.message}
                     </p>
                   )}
                 </div>
@@ -426,8 +420,8 @@ export default function Form() {
               <div className="sm:col-span-2 sm:col-start-1">
                 <div className="mt-4 flex justify-center items-center">
                   <Slider
-                    id="Groeße"
-                    {...register("Groeße")}
+                    id="groeße"
+                    {...register("groeße")}
                     label="Körpergröße"
                     size="lg"
                     step={1}
@@ -470,9 +464,9 @@ export default function Form() {
                     value={value1}
                     onChange={handleChange1}
                   />
-                  {errors.Groeße?.message && (
+                  {errors.groeße?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.Groeße.message}
+                      {errors.groeße.message}
                     </p>
                   )}
                 </div>
@@ -502,16 +496,16 @@ export default function Form() {
                   ]}
                   defaultValue={1}
                   className="max-w-lg"
-                  id="Aktivitaet"
-                  {...register("Aktivitaet")}
+                  id="zeit"
+                  {...register("zeit")}
                   onChange={(value) => {
                     // Handle the value change here
                     console.log("Slider value changed:", value);
                   }}
                 />
-                {errors.Aktivitaet?.message && (
+                {errors.zeit?.message && (
                   <p className="mt-2 text-sm text-red-400">
-                    {errors.Aktivitaet.message}
+                    {errors.zeit.message}
                   </p>
                 )}
               </div>
