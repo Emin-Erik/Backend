@@ -65,6 +65,7 @@ export async function PUT(req: NextRequest) {
                         },
                         data: {
                             username: username,
+
                             email: email,
                             role: role,
                         }
