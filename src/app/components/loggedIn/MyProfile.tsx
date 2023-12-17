@@ -36,7 +36,7 @@ export default function App() {
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
             {session ? (
-              <p className="font-bold">{session.user?.username}</p>
+              <p className="font-bold">{session.user?.name}</p>
             ) : (
               <p>Not signed in</p>
             )}
