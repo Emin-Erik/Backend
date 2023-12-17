@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import prisma from "../../../lib/prisma";
 import {getServerSession} from "next-auth/next";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from "@/app/api/auth/[...nextauth]/auth";
 import {$Enums} from ".prisma/client";
 import Role = $Enums.Role;
 
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
         } else {
             const id = req.nextUrl.searchParams.get("id") as string;
             const email = req.nextUrl.searchParams.get("email") as string;
-            const username = req.nextUrl.searchParams.get("username") as string;
+            const name = req.nextUrl.searchParams.get("name") as string;
             const role = req.nextUrl.searchParams.get("role") as Role;
             return new NextResponse(
                 JSON.stringify({
@@ -64,7 +64,7 @@ export async function PUT(req: NextRequest) {
                             id,
                         },
                         data: {
-                            username: username,
+                            name: name,
 
                             email: email,
                             role: role,

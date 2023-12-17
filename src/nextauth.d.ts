@@ -3,20 +3,20 @@ import NextAuth, { DefaultSession } from "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
-      username: string;
+      name: string;
       role?: Role;
     } & DefaultSession["user"];
   }
 
   interface User {
-    username: string;
+    name: string;
     role?: Role;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT extends DefaultJWT {
-    username: string;
+    name: string;
     role?: Role;
   }
 }

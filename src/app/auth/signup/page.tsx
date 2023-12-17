@@ -5,9 +5,11 @@ const SignUpPage = () => {
 
 
   return (
-    <div className="flex flex-col gap-4">
+    <section className='py-24'>
+    <div className='container'>
       <SignUpForm />
     </div>
+  </section>
   );
 };
 

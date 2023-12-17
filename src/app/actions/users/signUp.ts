@@ -6,7 +6,16 @@ import crypto from "crypto";
 import { sendEmail } from "../emails/sendEmail";
 import { VerifyEmailEmailTemplate } from "@/app/email-templates/verify-email-email";
 
-export const signUp = async (email: string, username: string, password: string) => {
+export const signUp = async (
+    name: string,
+    height: string,
+    email: string,
+    password: string,
+    geschlecht: string,
+    gewicht: string,
+    akitvitaet: string,
+    plan: string
+) => {
   const usermail = await prisma.user.findUnique({
     where: {
       email,
@@ -15,7 +24,7 @@ export const signUp = async (email: string, username: string, password: string) 
 
   const user = await prisma.user.findUnique({
     where: {
-      username,
+      name,
     },
   });
 
@@ -23,7 +32,7 @@ export const signUp = async (email: string, username: string, password: string) 
     return "User with that email already exists.";
   }
 
-  if (usermail) {
+  if (user) {
     return "User with that username already exists.";
   }
 
@@ -31,9 +40,14 @@ export const signUp = async (email: string, username: string, password: string) 
 
   const createdUser = await prisma.user.create({
     data: {
-      email,
-      username,
-      passwordHash,
+        name,
+        height,
+        email,
+        passwordHash,
+        geschlecht,
+        gewicht,
+        akitvitaet,
+        plan
     },
   });
 
