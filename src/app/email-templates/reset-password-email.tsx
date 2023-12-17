@@ -16,7 +16,7 @@ export const ResetPasswordEmailTemplate: React.FC<
       To reset your password, click on this link and follow the instructions:
     </p>
     <a
-      href={`http://web.axiom-me.com/auth/reset-password?token=${resetPasswordToken}`}
+      href={`https://web.axiom-me.com/auth/reset-password?token=${resetPasswordToken}`}
     >
       Click here to reset password
     </a>
