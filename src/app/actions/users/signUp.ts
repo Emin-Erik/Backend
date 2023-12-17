@@ -4,13 +4,17 @@ import prisma from "@/app/lib/prisma";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { sendEmail } from "../emails/sendEmail";
-import { useRouter } from "next/navigation";
 import { VerifyEmailEmailTemplate } from "@/app/email-templates/verify-email-email";
 
 export const signUp = async (
-  email: string,
-  username: string,
-  password: string
+    name: string,
+    height: string,
+    email: string,
+    password: string,
+    geschlecht: string,
+    gewicht: string,
+    akitvitaet: string,
+    plan: string
 ) => {
   const usermail = await prisma.user.findUnique({
     where: {
@@ -20,7 +24,7 @@ export const signUp = async (
 
   const user = await prisma.user.findUnique({
     where: {
-      username,
+      name,
     },
   });
 
@@ -36,9 +40,14 @@ export const signUp = async (
 
   const createdUser = await prisma.user.create({
     data: {
-      email,
-      username,
-      passwordHash,
+        name,
+        height,
+        email,
+        passwordHash,
+        geschlecht,
+        gewicht,
+        akitvitaet,
+        plan
     },
   });
 

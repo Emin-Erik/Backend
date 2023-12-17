@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Button,
@@ -14,13 +14,14 @@ import {
 import { z } from "zod";
 import { FormDataSchema } from "../lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import React from "react";
 import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import Lottie from "lottie-react";
 import animation from "./signUp_images/animation.json";
 import { GrFormNext } from "react-icons/gr";
+import {signUp} from "@/app/actions/users/signUp";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
@@ -46,16 +47,24 @@ export default function Form() {
   const {
     register,
     handleSubmit,
-    watch,
-    reset,
     trigger,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(FormDataSchema),
   });
 
-  const processForm = (data: Inputs) => {
+  const processForm = async (data: Inputs) => {
     console.log("IT WORKED", data);
+    await signUp(
+        data.name,
+        data.groeße,
+        data.email,
+        data.password,
+        data.geschlecht,
+        data.gewicht,
+        data.zeit,
+        data.plan
+    );
   };
 
   type FieldName = keyof Inputs;

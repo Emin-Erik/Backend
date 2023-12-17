@@ -106,7 +106,7 @@ export const authOptions: AuthOptions = {
         });
         params.token.email = params.user.email;
         if (user) {
-          params.token.name = user.username;
+          params.token.name = user.name;
         }
       }
       cookies().set("LoggedIn", "true", { maxAge: 30 * 24 * 60 * 60 });
