@@ -10,35 +10,20 @@ on:
 
 jobs:
   prettier-check:
-    name: Validate Formatting
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16" # Specify the Node.js version
+      - name: Install Prettier
+        run: npm install -g prettier
 
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # Cache dependencies using a hash of the package-lock.json as key
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+      - name: Check code style
+        run: prettier --check '**/*.js' --write
 
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Check Formatting with Prettier
+      - name: Fail if any files need formatting
+        if: steps.prettier-check.outputs.incorrect-files != ''
         run: |
-          npm run prettier -- --check .
-          
+          echo "The following files need to be formatted:"
+          echo "${steps.prettier-check.outputs.incorrect-files}"
+          exit 1
