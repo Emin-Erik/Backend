@@ -21,22 +21,22 @@ import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import Lottie from "lottie-react";
 import animation from "./signUp_images/animation.json";
 import { GrFormNext } from "react-icons/gr";
-import {signUp} from "@/app/actions/users/signUp";
+import { signUp } from "@/app/actions/users/signUp";
 
 type Inputs = z.infer<typeof FormDataSchema>;
 
 const steps = [
   {
-    id: "Step 1",
+    id: "Schritt 1",
     name: "Meine Informationen",
     fields: ["name", "email", "password", "confirmPassword"],
   },
   {
-    id: "Step 2",
+    id: "Schritt 2",
     name: "Mein Plan",
     fields: ["geschlecht", "gewicht", "groeße", "plan", "zeit"],
   },
-  { id: "Step 3", name: "Bestätigen & Anmelden" },
+  { id: "Schritt 3", name: "Bestätigen & Anmelden" },
 ];
 
 export default function Form() {
@@ -56,14 +56,14 @@ export default function Form() {
   const processForm = async (data: Inputs) => {
     console.log("IT WORKED", data);
     await signUp(
-        data.name,
-        data.groeße,
-        data.email,
-        data.password,
-        data.geschlecht,
-        data.gewicht,
-        data.zeit,
-        data.plan
+      data.name,
+      data.groeße,
+      data.email,
+      data.password,
+      data.geschlecht,
+      data.gewicht,
+      data.zeit,
+      data.plan
     );
   };
 
@@ -155,7 +155,7 @@ export default function Form() {
   };
 
   return (
-    <section className="absolute inset-0 flex flex-col justify-between p-24">
+    <section className="absolute inset-0 flex flex-col justify-between p-12 lg:p-24">
       {/* steps */}
       <nav aria-label="Progress">
         <ol role="list" className="space-y-4 md:flex md:space-x-8 md:space-y-0">
@@ -516,7 +516,7 @@ export default function Form() {
                     },
                     {
                       value: 7,
-                      label: `sehr oft`,
+                      label: `oft`,
                     },
                   ]}
                   defaultValue={1}
@@ -565,39 +565,35 @@ export default function Form() {
       </form>
 
       {/* Navigation */}
-      <div className="mt-8 pt-5">
-        <div className="flex justify-between">
+      <motion.div
+        initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <div className="flex justify-center">
           <div className="flex gap-4 items-center">
-            <Button
-              onClick={prev}
-              disabled={currentStep === 0}
-              className="bg-primary-100 text-primary-foreground"
-              startContent={<GrFormNextMirror />}
-            >
-              Zurück
-            </Button>
-          </div>
-          <div className="flex gap-4 items-center">
-            {currentStep < steps.length - 1 ? (
+            {currentStep === 2 ? (
               <Button
-                onClick={next}
-                className="bg-primary-100 text-primary-foreground"
-                endContent={<GrFormNext />}
+                size="lg"
+                variant="flat"
+                onClick={() => (window.location.href = "localhost:3000")}
+                className="bg-primary-100 text-primary-foreground text-sm w-44 mt-4"
               >
-                Weiter
+                Anmelden
               </Button>
             ) : (
               <Button
-                onClick={() => (window.location.href = "localhost:3000")}
-                className="bg-primary-100 text-primary-foreground"
-                endContent={<GrFormNext />}
+                size="lg"
+                variant="flat"
+                onClick={next}
+                className="bg-primary-100 text-primary-foreground text-sm w-44 mt-4"
               >
-                Anmelden
+                Weiter
               </Button>
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
