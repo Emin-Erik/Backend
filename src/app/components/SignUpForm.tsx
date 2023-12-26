@@ -95,10 +95,6 @@ export default function Form() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const GrFormNextMirror = () => {
-    return <GrFormNext style={{ transform: "scaleX(-1)" }} />;
-  };
-
   const plan = [
     {
       label: "Abnehmen",
@@ -566,8 +562,8 @@ export default function Form() {
 
       {/* Navigation */}
       <motion.div
-        initial={{ x: delta >= 0 ? "50%" : "-50%", opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
+        initial={{ y: delta >= 0 ? "100%" : "-100%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <div className="flex justify-center">
