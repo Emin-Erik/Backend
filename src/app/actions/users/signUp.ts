@@ -22,19 +22,10 @@ export const signUp = async (
     },
   });
 
-  const user = await prisma.user.findUnique({
-    where: {
-      name,
-    },
-  });
-
   if (usermail) {
     return "User with that email already exists.";
   }
 
-  if (user) {
-    return "User with that username already exists.";
-  }
 
   const passwordHash = bcrypt.hashSync(password, 10);
 
