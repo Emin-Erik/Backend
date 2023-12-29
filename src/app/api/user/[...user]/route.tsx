@@ -57,19 +57,19 @@ export async function PUT(req: NextRequest) {
             const email = req.nextUrl.searchParams.get("email") as string;
             const name = req.nextUrl.searchParams.get("name") as string;
             const role = req.nextUrl.searchParams.get("role") as Role;
+
+            const updateData: Record<string, string | Role> = {};
+            if (email) updateData.email = email;
+            if (name) updateData.name = name;
+            if (role) updateData.role = role;
+
             return new NextResponse(
                 JSON.stringify({
                     user: await prisma.user.updateMany({
                         where: {
                             id,
                         },
-                        data: {
-                            name: name,
-
-                            email: email,
-                            role: role,
-                        }
-
+                        data: updateData
                     })
                 }),
                 {

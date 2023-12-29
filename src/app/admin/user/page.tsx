@@ -18,13 +18,17 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export default function App() {
     const [user, setUsers] = useState<any>();
-    const [isLoaded, setIsLoaded] = React.useState(false);
     const searchParams = useSearchParams()
     const id = searchParams.get('id')
     const [open, setOpen] = React.useState(false);
+    const [openDanger, setOpenDanger] = React.useState(false);
 
-    const handleClick = () => {
+    const handleSucces = () => {
         setOpen(true);
+    };
+
+    const handleError = () => {
+        setOpenDanger(true);
     };
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
@@ -52,7 +56,7 @@ export default function App() {
     }, []);
 
     const [email, setEmail] = useState(user?.user?.email);
-    const [username, setUsername] = useState(user?.user?.username);
+    const [name, setName] = useState(user?.user?.name);
     const [role, setRole] = useState(user?.user?.role);
     const roleOptions = [Role.USER, Role.ADMIN];
     // @ts-ignore
@@ -60,50 +64,143 @@ export default function App() {
 
     const updateUser = async () => {
         try {
-            await fetch("/api/user/PUT?id=" + id + "&username=" + username + "&email=" + email + "&role=" + role, {
-                method: "PUT",
-                headers: {"Content-Type": "application/json"},
+            const queryParams = [];
+
+            if (name !== undefined) {
+                queryParams.push(`username=${encodeURIComponent(name)}`);
+            }
+
+            if (email !== undefined) {
+                queryParams.push(`email=${encodeURIComponent(email)}`);
+            }
+
+            if (role !== undefined) {
+                queryParams.push(`role=${encodeURIComponent(role)}`);
+            }
+
+            const queryString = queryParams.join('&');
+
+            const response = await fetch(`/api/user/PUT?id=${id}${queryString.length ? '&' + queryString : ''}`, {
+                method: 'PUT',
+                headers: {'Content-Type': 'application/json'},
             });
+
+            console.log(response)
+
+            if (!response.ok) {
+                // Handle non-successful response (e.g., show an error message)
+                handleError();
+                return;
+            } else {
+                handleSucces();
+            }
+
+            // Handle successful response if needed
+            const responseData = await response.json();
+            console.log('User updated successfully:', responseData);
         } catch (error) {
-            console.log("error", error);
+            console.error('Error updating user:', error);
         }
-        {
-            handleClick();
-        }
+
+
     };
 
 
     return (
 
         <>
-            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={open} autoHideDuration={6000}
+        {!user?.user ? (
+            <>
+            Loading ...
+            </>
+            ) : (
+            <>
+        {user?.user?.name}
+            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={open} autoHideDuration={2000}
                       onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{width: '100%'}}>
-                    This is a success message!
+                    User updated
                 </Alert>
             </Snackbar>
+            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} open={openDanger} autoHideDuration={2000}
+                      onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+                    Error updating user
+                </Alert>
+            </Snackbar>
+            <div className="w-full flex flex-row flex-wrap gap-4 mt-3">
             <Input
                 isReadOnly
                 defaultValue={user?.user?.id}
+                placeholder={user?.user?.id}
+                label="ID"
+                labelPlacement="outside"
                 className="max-w-xs"
             />
             <br/>
             <Input
                 defaultValue={user?.user?.email}
+                placeholder={user?.user?.email}
+                label="Email"
+                labelPlacement="outside"
                 className="max-w-xs"
                 onChange={(e) => setEmail(e.target.value)}
             />
             <br/>
             <Input
-                defaultValue={user?.user?.username}
+                defaultValue={user?.user?.name}
+                placeholder={user?.user?.name}
+                label="Name"
+                labelPlacement="outside"
                 className="max-w-xs"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
             />
+                <Input
+                    defaultValue={user?.user?.plan}
+                    placeholder={user?.user?.plan}
+                    label="Plan"
+                    labelPlacement="outside"
+                    className="max-w-xs"
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    defaultValue={user?.user?.geschlecht}
+                    placeholder={user?.user?.geschlecht}
+                    label="Geschlecht"
+                    labelPlacement="outside"
+                    className="max-w-xs"
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    defaultValue={user?.user?.height}
+                    placeholder={user?.user?.height}
+                    label="Größe"
+                    labelPlacement="outside"
+                    className="max-w-xs"
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    defaultValue={user?.user?.akitvitaet}
+                    placeholder={user?.user?.akitvitaet}
+                    label="Aktivität"
+                    labelPlacement="outside"
+                    className="max-w-xs"
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <Input
+                    defaultValue={user?.user?.gewicht}
+                    placeholder={user?.user?.gewicht}
+                    label="Gewicht"
+                    labelPlacement="outside"
+                    className="max-w-xs"
+                    onChange={(e) => setName(e.target.value)}
+                />
             <br/>
             <Select
                 label="Role"
                 variant="bordered"
                 placeholder={user?.user?.role}
+                labelPlacement="outside"
                 selectedKeys={value}
                 className="max-w-xs"
                 onSelectionChange={setValue}
@@ -113,12 +210,14 @@ export default function App() {
                     <SelectItem key={roleOption} value={roleOption}>{roleOption}</SelectItem>
                 ))}
             </Select>
+            </div>
             <br/>
             {user?.user?.emailVerified ? (<p>Email verified</p>) : (<p>Email not verified</p>)}
             <br/>
             <Button onClick={updateUser}><p>Safe</p></Button>
+            </>
+)}
 
         </>
-
     );
 }
