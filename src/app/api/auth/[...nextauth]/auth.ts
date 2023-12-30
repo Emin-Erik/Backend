@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
                     type: "text",
                     placeholder: "your@email.com",
                 },
-                passwordHash: {
+                password: {
                     label: "Password",
                     type: "password",
                 },
@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
-                const { email, passwordHash } = credentials;
+                const { email, password } = credentials;
 
                 const user = await prisma.user.findUnique({
                     where: {
@@ -41,7 +41,7 @@ export const authOptions: NextAuthOptions = {
 
                 const userPassword = user.passwordHash;
 
-                const isValidPassword = bcrypt.compareSync(passwordHash, userPassword);
+                const isValidPassword = bcrypt.compareSync(password, userPassword);
 
                 if (!isValidPassword) {
                     return null;
@@ -55,10 +55,9 @@ export const authOptions: NextAuthOptions = {
         signIn: "/auth/signin",
         signOut: "/auth/signout",
     },
-    secret: process.env.NEXTAUTH_SECRET,
     jwt: {
-        async encode({ secret, token }) {
-            if (!token) {
+        async encode({ secret = process.env.NEXTAUTH_SECRET , token }) {
+            if (!token || !secret) {
                 throw new Error("No token to encode");
             }
             return jwt.sign(token, secret);
@@ -84,11 +83,12 @@ export const authOptions: NextAuthOptions = {
         async session(params: { session: Session; token: JWT; user: User }) {
             if (params.session.user) {
                 params.session.user.email = params.token.email;
+                params.session.user.name = params.token.name;
+                params.session.user.role = params.token.role
             }
 
             return params.session;
         },
-
         async jwt(params: {
             token: JWT;
             user?: User | undefined;
@@ -97,18 +97,11 @@ export const authOptions: NextAuthOptions = {
             isNewUser?: boolean | undefined;
         }) {
             if (params.user) {
-                const email = params.user.email!;
-                const user = await prisma.user.findUnique({
-                    where: {
-                        email,
-                    },
-                });
                 params.token.email = params.user.email;
-                if (user) {
-                    params.token.name = user.name;
-                }
+                params.token.name = params.user.name;
+                params.token.role = params.user.role
             }
-            cookies().set("LoggedIn", "true", { maxAge: 30 * 24 * 60 * 60 });
+
             return params.token;
         },
     },

@@ -9,13 +9,12 @@ import {
 } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import { useCookies } from "next-client-cookies";
+import { useRouter } from "next/navigation";
 
 export default function App() {
-  const cookies = useCookies();
-  const { data: session } = useSession(); // Use "data" for destructuring
+  const { data: session } = useSession();
+  const router = useRouter();
   const SignOut = () => {
-    cookies.remove("LoggedIn");
     signOut({
       callbackUrl: "/",
       redirect: true,
@@ -42,12 +41,16 @@ export default function App() {
               <p>Not signed in</p>
             )}
           </DropdownItem>
-          <DropdownItem key="settings">My Settings</DropdownItem>
-          <DropdownItem key="team_settings">Team Settings</DropdownItem>
-          <DropdownItem key="analytics">Analytics</DropdownItem>
-          <DropdownItem key="system">System</DropdownItem>
-          <DropdownItem key="configurations">Configurations</DropdownItem>
-          <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
+
+          { session && session.user.role === "ADMIN" ? (
+              <DropdownItem href="/admin/users">
+              <p className="font-bold">{session.user?.role}</p>
+              </DropdownItem>) : (
+              <DropdownItem>
+                <p className="font-bold">My Profile</p>
+              </DropdownItem>
+            )
+          }
           <DropdownItem key="logout" color="danger" onPress={SignOut}>
             Log Out
           </DropdownItem>
