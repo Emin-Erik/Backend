@@ -4,10 +4,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
-import { cookies } from "next/headers";
+import FacebookProvider from "next-auth/providers/facebook";
 
 export const authOptions: NextAuthOptions = {
     providers: [
+        FacebookProvider({
+            clientId: process.env.FACEBOOK_CLIENT_ID as string,
+            clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
+        }),
         CredentialsProvider({
             name: "credentials",
 
