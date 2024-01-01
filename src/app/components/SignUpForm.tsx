@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {
   Button,
   Input,
+  Link,
   Select,
   SelectItem,
   Slider,
@@ -569,14 +570,16 @@ export default function Form() {
         <div className="flex justify-center">
           <div className="flex gap-4 items-center">
             {currentStep === 2 ? (
-              <Button
-                size="lg"
-                variant="flat"
-                onClick={() => (window.location.href = "localhost:3000")}
-                className="bg-primary-100 text-primary-foreground text-sm w-44 mt-4"
-              >
-                Anmelden
-              </Button>
+              <Link href={"/auth/signin"}>
+                <Button
+                  size="lg"
+                  variant="flat"
+                  onClick={() => (window.location.href = "localhost:3000")}
+                  className="bg-primary-100 text-primary-foreground text-sm w-44 mt-4"
+                >
+                  Anmelden
+                </Button>
+              </Link>
             ) : (
               <Button
                 size="lg"
