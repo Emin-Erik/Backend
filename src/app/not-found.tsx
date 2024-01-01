@@ -22,11 +22,11 @@ const NotFound = () => {
       }}
     >
       <div className="max-w-2xl mx-auto text-center lg:mt-32">
-        <h2 className="mt-10 text-2xl font-semibold text-center leading-relaxed text-white">
+        <h1 className="mt-10 text-3xl font-semibold text-center leading-relaxed text-white">
           Entschuldigung, die Seite konnte nicht gefunden werden.
-        </h2>
+        </h1>
         <Lottie animationData={animation} style={style} loop={false} />
-        <p className="mt-5 mb-8 text-md text-center leading-relaxed text-gray-500">
+        <p className="mb-8 text-md text-center leading-relaxed text-gray-500">
           Die angeforderte Seite existiert nicht oder wurde verschoben. Bitte
           verwenden Sie den untenstehenden Button, um zur Startseite
           zurückzukehren.
