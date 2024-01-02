@@ -100,12 +100,9 @@ export default function App() {
                 >
                   Sign in
                 </Button>
-                <a
-                    onClick={() => signIn("facebook", {callbackUrl})}
-                    role="button"
-                >
-                  Continue with Facebook
-                </a>
+                <Button onClick={() => signIn("facebook")}>
+                  Sign in with Facebook
+                </Button>
               </div>
             </ModalBody>
             <ModalFooter>{message}</ModalFooter>
