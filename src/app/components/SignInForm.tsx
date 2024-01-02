@@ -65,12 +65,12 @@ const SignInForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
+      <Button onClick={() => signIn("facebook")} className="mt-5"/>
       <Button onClick={handleSubmit}>Sign in</Button>
       <Link href="#">Default Link</Link>
       <p>{message}</p>
     </div>
-        <Button onClick={() => signIn("facebook")} className="mt-5"/>
+
       </>
   );
 }
