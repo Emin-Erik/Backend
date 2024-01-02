@@ -103,6 +103,9 @@ export default function App() {
                 <Button onClick={() => signIn("facebook")}>
                   Sign in with Facebook
                 </Button>
+                <Button onClick={() => signIn("google")}>
+                  Sign in with Google
+                </Button>
               </div>
             </ModalBody>
             <ModalFooter>{message}</ModalFooter>
