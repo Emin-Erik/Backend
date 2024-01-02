@@ -93,13 +93,19 @@ export default function App() {
                   Forgot password?
                 </Link>
                 <Button
-                  color="primary"
-                  onClick={handleSubmit}
-                  type="submit"
-                  isDisabled={!email || !password}
+                    color="primary"
+                    onClick={handleSubmit}
+                    type="submit"
+                    isDisabled={!email || !password}
                 >
                   Sign in
                 </Button>
+                <a
+                    onClick={() => signIn("facebook", {callbackUrl})}
+                    role="button"
+                >
+                  Continue with Facebook
+                </a>
               </div>
             </ModalBody>
             <ModalFooter>{message}</ModalFooter>
