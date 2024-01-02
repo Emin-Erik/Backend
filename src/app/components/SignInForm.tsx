@@ -54,22 +54,27 @@ const SignInForm = () => {
 
   return (
       <>
-    <div className="flex flex-col gap-4 bg-gray-400 p-4">
-      <Input
-        type="text"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Button onClick={() => signIn("facebook")} className="mt-5"/>
-      <Button onClick={handleSubmit}>Sign in</Button>
-      <Link href="#">Default Link</Link>
-      <p>{message}</p>
-    </div>
+        <div className="flex flex-col gap-4 bg-gray-400 p-4">
+          <a
+              style={{backgroundColor: "#55acee"}}
+              onClick={() => signIn("facebook")}
+              role="button"
+          >
+            Continue with Facebook
+          </a>
+          <Input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button onClick={() => signIn("facebook")} className="mt-5"/>
+          <p>{message}</p>
+        </div>
 
       </>
   );
