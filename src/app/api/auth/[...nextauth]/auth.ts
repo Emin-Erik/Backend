@@ -6,9 +6,12 @@ import jwt from "jsonwebtoken";
 import { JWT } from "next-auth/jwt";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
+import {PrismaAdapter} from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 
-
+const client = new PrismaClient();
 export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(client),
     providers: [
         FacebookProvider({
             clientId: process.env.FACEBOOK_CLIENT_ID as string,
