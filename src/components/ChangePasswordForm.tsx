@@ -1,55 +1,70 @@
 "use client";
-import React, { useState } from "react";
-import { changePassword } from "../actions/users/changePassword";
-import { Button, Input } from "@nextui-org/react";
 
-interface ChangePasswordFormProps {
-  resetPasswordToken: string;
-}
+import * as z from "zod";
+import { useForm } from "react-hook-form";
+import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const ChangePasswordForm = ({
-  resetPasswordToken,
-}: ChangePasswordFormProps) => {
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+import { NewPasswordSchema } from "@/app/lib/schema";
+import { Input } from "@/components/ui/input";
+import { newPassword } from "@/actions/new-password";
+import { Form, FormField, FormItem } from "@/components/ui/form";
+import { Button } from "@nextui-org/react";
 
-  const [message, setMessage] = useState<string>("");
+const ChangePasswordForm = () => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
 
-  const handleSubmit = async () => {
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match");
-      return;
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+  const [isPending, startTransition] = useTransition();
+
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
+    defaultValues: {
+      password: "",
+    },
+  });
+
+  const handleSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+    {
+      setError("");
+      setSuccess("");
+
+      startTransition(() => {
+        newPassword(values, token).then((data) => {
+          setError(data?.error);
+          setSuccess(data?.success);
+        });
+      });
     }
-
-    const message = await changePassword(resetPasswordToken, password);
-
-    setMessage(message);
   };
 
   return (
-    <div className="flex flex-col gap-4 w-1/4 justify-center m-auto h-screen">
-      <a href="/">
-        <img
-          className="max-h-20 m-auto"
-          src="/assets/Axiom_Logo.png"
-          alt="Logo"
-        />
-      </a>
-      <Input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <Button onClick={handleSubmit}>Change Password</Button>
-      <p>{message}</p>
-    </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
+        <div className="space-y-4">
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <Input
+                  {...field}
+                  disabled={isPending}
+                  placeholder="******"
+                  type="password"
+                />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button disabled={isPending} type="submit" className="w-full">
+          Reset password
+        </Button>
+      </form>
+    </Form>
   );
 };
 
