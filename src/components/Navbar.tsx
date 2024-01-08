@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import {Button, Link, Modal, Navbar, NavbarBrand, NavbarContent, NavbarItem, useDisclosure} from "@nextui-org/react";
-import {ThemeSwitcher} from "@/app/components/ui/theme/ThemeSwitcher";
+import {ThemeSwitcher} from "@/components/ui/theme/ThemeSwitcher";
 import MyProfile from "./loggedIn/MyProfile";
-import LoginModal from "../auth/signin/LoginModal";
+import LoginModal from "../app/auth/signin/LoginModal";
 import {useSession} from "next-auth/react";
 
 const NavbarTemplate = () => {
@@ -13,7 +13,7 @@ const NavbarTemplate = () => {
         <Navbar>
             <NavbarBrand>
                 <a href="/">
-                    <img className="max-h-12" src="/assets/Axiom_Logo.png" alt="Logo"/>
+                    <img className="max-h-12 max-w-12" src="/assets/Axiom_Logo.png" alt="Logo"/>
                 </a>
             </NavbarBrand>
             <NavbarContent justify="end">

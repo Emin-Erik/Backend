@@ -6,7 +6,7 @@ import {Button, Select, Selection, SelectItem} from "@nextui-org/react";
 import {$Enums} from ".prisma/client";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, {AlertProps} from '@mui/material/Alert';
-import Role = $Enums.Role;
+import Role = $Enums.UserRole;
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -164,8 +164,8 @@ export default function App() {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <Input
-                    defaultValue={user?.user?.geschlecht}
-                    placeholder={user?.user?.geschlecht}
+                    defaultValue={user?.user?.gender}
+                    placeholder={user?.user?.gender}
                     label="Geschlecht"
                     labelPlacement="outside"
                     className="max-w-xs"
@@ -180,16 +180,16 @@ export default function App() {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <Input
-                    defaultValue={user?.user?.akitvitaet}
-                    placeholder={user?.user?.akitvitaet}
+                    defaultValue={user?.user?.activity}
+                    placeholder={user?.user?.activity}
                     label="Aktivität"
                     labelPlacement="outside"
                     className="max-w-xs"
                     onChange={(e) => setName(e.target.value)}
                 />
                 <Input
-                    defaultValue={user?.user?.gewicht}
-                    placeholder={user?.user?.gewicht}
+                    defaultValue={user?.user?.weight}
+                    placeholder={user?.user?.weight}
                     label="Gewicht"
                     labelPlacement="outside"
                     className="max-w-xs"

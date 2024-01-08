@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import {ThemeSwitcher} from "@/app/components/ui/theme/ThemeSwitcher";
+import {ThemeSwitcher} from "@/components/ui/theme/ThemeSwitcher";
 
 type Props = {
     onMenuButtonClick(): void;

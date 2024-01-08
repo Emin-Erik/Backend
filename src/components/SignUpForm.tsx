@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { z } from "zod";
-import { FormDataSchema } from "../lib/schema";
+import { RegisterSchema } from "@/app/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import React from "react";
@@ -21,10 +21,9 @@ import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import Lottie from "lottie-react";
 import animation from "./signUp_images/animation.json";
-import { GrFormNext } from "react-icons/gr";
-import { signUp } from "@/app/actions/users/signUp";
+import {signUp} from "@/actions/register";
 
-type Inputs = z.infer<typeof FormDataSchema>;
+type Inputs = z.infer<typeof RegisterSchema>;
 
 const steps = [
   {
@@ -51,20 +50,13 @@ export default function Form() {
     trigger,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: zodResolver(FormDataSchema),
+    resolver: zodResolver(RegisterSchema),
   });
 
   const processForm = async (data: Inputs) => {
     console.log("IT WORKED", data);
     await signUp(
-      data.name,
-      data.groeße,
-      data.email,
-      data.password,
-      data.geschlecht,
-      data.gewicht,
-      data.zeit,
-      data.plan
+      data
     );
   };
 
@@ -329,16 +321,16 @@ export default function Form() {
                 <div className="mt-2 flex justify-center items-center">
                   <div className="flex flex-col w-full max-w-lg">
                     {/* Fehlermeldung */}
-                    {errors.geschlecht?.message && (
+                    {errors.gender?.message && (
                       <p className="text-sm ml-2 text-red-400 mb-2">
-                        {errors.geschlecht.message}
+                        {errors.gender.message}
                       </p>
                     )}
 
                     {/* Select-Element */}
                     <Select
                       id="geschlecht"
-                      {...register("geschlecht")}
+                      {...register("gender")}
                       isRequired
                       label="Dein Geschlecht"
                       placeholder="Wähle dein Geschlecht"
@@ -387,7 +379,7 @@ export default function Form() {
                 <div className="mt-4 flex justify-center items-center">
                   <Slider
                     id="gewicht"
-                    {...register("gewicht")}
+                    {...register("weight")}
                     label="Kilogrammgewicht"
                     size="sm"
                     step={1}
@@ -431,9 +423,9 @@ export default function Form() {
                     value={value}
                     onChange={handleChange}
                   />
-                  {errors.gewicht?.message && (
+                  {errors.weight?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.gewicht.message}
+                      {errors.weight.message}
                     </p>
                   )}
                 </div>
@@ -443,7 +435,7 @@ export default function Form() {
                 <div className="mt-4 flex justify-center items-center">
                   <Slider
                     id="groeße"
-                    {...register("groeße")}
+                    {...register("height")}
                     label="Körpergröße"
                     size="lg"
                     step={1}
@@ -486,9 +478,9 @@ export default function Form() {
                     value={value1}
                     onChange={handleChange1}
                   />
-                  {errors.groeße?.message && (
+                  {errors.height?.message && (
                     <p className="mt-2 text-sm text-red-400">
-                      {errors.groeße.message}
+                      {errors.height.message}
                     </p>
                   )}
                 </div>
@@ -519,15 +511,15 @@ export default function Form() {
                   defaultValue={1}
                   className="max-w-lg"
                   id="zeit"
-                  {...register("zeit")}
+                  {...register("activity")}
                   onChange={(value) => {
                     // Handle the value change here
                     console.log("Slider value changed:", value);
                   }}
                 />
-                {errors.zeit?.message && (
+                {errors.activity?.message && (
                   <p className="mt-2 text-sm text-red-400">
-                    {errors.zeit.message}
+                    {errors.activity.message}
                   </p>
                 )}
               </div>

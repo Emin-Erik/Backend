@@ -1,13 +1,12 @@
 import {NextRequest, NextResponse} from "next/server";
 import prisma from "../../../lib/prisma";
-import {getServerSession} from "next-auth/next";
-import {authOptions} from "@/app/api/auth/[...nextauth]/auth";
+import { auth } from "@/auth"
 import {$Enums} from ".prisma/client";
-import Role = $Enums.Role;
+import Role = $Enums.UserRole;
 
 
 export async function GET(req: NextRequest) {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
         return NextResponse.json({error: 'Unauthorized'}, {status: 401})
     }
@@ -39,7 +38,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
         return NextResponse.json({error: 'Unauthorized'}, {status: 401})
     }

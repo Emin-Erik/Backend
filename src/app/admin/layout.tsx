@@ -1,6 +1,5 @@
-import {getServerSession} from "next-auth/next";
+import { auth } from "@/auth"
 import React from "react";
-import {authOptions} from "../api/auth/[...nextauth]/auth";
 import {redirect} from "next/navigation";
 import prisma from "@/app/lib/prisma";
 import {Providers} from "./providers";
@@ -13,7 +12,7 @@ interface ProtectedLayoutProps {
 type ShowSidebarState = boolean;
 
 const ProtectedLayout = async ({children}: ProtectedLayoutProps) => {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
     if (!session) {
         redirect("/");
     }
