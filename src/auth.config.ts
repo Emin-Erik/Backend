@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import type { NextAuthConfig } from "next-auth";
-import Credentials from "next-auth/providers/credentials";
-import Facebook from "next-auth/providers/facebook";
-import Google from "next-auth/providers/google";
+import Credentials from "@auth/core/providers/credentials";
+import Facebook from "@auth/core/providers/facebook";
+import Google from "@auth/core/providers/facebook";
 
 import { LoginSchema } from "@/lib/schema";
 import { getUserByEmail } from "@/data/user";
@@ -10,8 +10,15 @@ import { getUserByEmail } from "@/data/user";
 export default {
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
+        },
+      },
     }),
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
