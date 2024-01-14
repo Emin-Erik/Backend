@@ -6,6 +6,7 @@ import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/lib/schema";
+import { Social } from "@/components/auth/social";
 import background from "../background/background.svg";
 import {
   Form,
@@ -148,6 +149,7 @@ export const LoginForm = () => {
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
+        <Social />
       </Form>
     </div>
   );
