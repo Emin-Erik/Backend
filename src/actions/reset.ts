@@ -2,10 +2,10 @@
 
 import * as z from "zod";
 
-import { ResetSchema } from "@/app/lib/schema";
+import { ResetSchema } from "@/lib/schema";
 import { getUserByEmail } from "@/data/user";
-import { sendPasswordResetEmail } from "@/app/lib/mail";
-import { generatePasswordResetToken } from "@/app/lib/tokens";
+import { sendPasswordResetEmail } from "@/lib/mail";
+import { generatePasswordResetToken } from "@/lib/tokens";
 
 export const reset = async (values: z.infer<typeof ResetSchema>) => {
   const validatedFields = ResetSchema.safeParse(values);
@@ -29,4 +29,4 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
   );
 
   return { success: "Reset email sent!" };
-}
+};

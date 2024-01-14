@@ -3,13 +3,13 @@
 import * as z from "zod";
 import bcrypt from "bcryptjs";
 
-import { NewPasswordSchema } from "@/app/lib/schema";
+import { NewPasswordSchema } from "@/lib/schema";
 import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
-import { db } from "@/app/lib/db";
+import { db } from "@/lib/db";
 
 export const newPassword = async (
-  values: z.infer<typeof NewPasswordSchema> ,
+  values: z.infer<typeof NewPasswordSchema>,
   token?: string | null,
 ) => {
   if (!token) {
@@ -39,7 +39,7 @@ export const newPassword = async (
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Email does not exist!" }
+    return { error: "Email does not exist!" };
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -50,7 +50,7 @@ export const newPassword = async (
   });
 
   await db.passwordResetToken.delete({
-    where: { id: existingToken.id }
+    where: { id: existingToken.id },
   });
 
   return { success: "Password updated!" };

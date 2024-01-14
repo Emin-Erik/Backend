@@ -7,13 +7,11 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 export default function App() {
-  const { data: session } = useSession();
-  const router = useRouter();
+  const session = useCurrentUser();
   const SignOut = () => {
     signOut({
       callbackUrl: "/",
@@ -36,21 +34,24 @@ export default function App() {
           <DropdownItem key="profile" className="h-14 gap-2">
             <p className="font-bold">Signed in as</p>
             {session ? (
-              <p className="font-bold">{session.user?.name}</p>
+              <p className="font-bold">{session.name}</p>
             ) : (
               <p>Not signed in</p>
             )}
           </DropdownItem>
 
-          { session && session.user.role === "ADMIN" ? (
-              <DropdownItem href="/admin/users">
-              <p className="font-bold">{session.user?.role}</p>
-              </DropdownItem>) : (
-              <DropdownItem>
-                <p className="font-bold">My Profile</p>
-              </DropdownItem>
-            )
-          }
+          {session && session.role === "ADMIN" ? (
+            <DropdownItem href="/admin/users">
+              <p className="font-bold">{session.role}</p>
+            </DropdownItem>
+          ) : (
+            <DropdownItem href="/settings">
+              <p className="font-bold">Settings</p>
+            </DropdownItem>
+          )}
+          <DropdownItem href="/settings">
+            <p className="font-bold">Settings</p>
+          </DropdownItem>
           <DropdownItem key="logout" color="danger" onPress={SignOut}>
             Log Out
           </DropdownItem>

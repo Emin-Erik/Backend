@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { z } from "zod";
-import { RegisterSchema } from "@/app/lib/schema";
+import { RegisterSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import React from "react";
@@ -21,7 +21,7 @@ import { EyeSlashFilledIcon } from "./signUp_images/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "./signUp_images/EyeFilledIcon";
 import Lottie from "lottie-react";
 import animation from "./signUp_images/animation.json";
-import {signUp} from "@/actions/register";
+import { signUp } from "@/actions/register";
 
 type Inputs = z.infer<typeof RegisterSchema>;
 
@@ -55,9 +55,7 @@ export default function Form() {
 
   const processForm = async (data: Inputs) => {
     console.log("IT WORKED", data);
-    await signUp(
-      data
-    );
+    await signUp(data);
   };
 
   type FieldName = keyof Inputs;
