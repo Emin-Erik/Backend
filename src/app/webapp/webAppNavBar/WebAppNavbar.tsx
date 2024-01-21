@@ -9,8 +9,12 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  User,
 } from "@nextui-org/react";
-import UserDropDown from "@/app/webapp/userDropDown/userDropDown";
 
 const WebAppNavbar: NextPage = () => {
   return (
@@ -43,7 +47,34 @@ const WebAppNavbar: NextPage = () => {
         </NavbarContent>
 
         <NavbarContent as="div" justify="end">
-          <UserDropDown />
+          <div className="flex items-center gap-4">
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <User
+                  as="button"
+                  avatarProps={{
+                    isBordered: true,
+                    src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+                  }}
+                  className="transition-transform"
+                  description="@tonyreichert"
+                  name="Tony Reichert"
+                />
+              </DropdownTrigger>
+              <DropdownMenu aria-label="User Actions" variant="flat">
+                <DropdownItem key="new">New file</DropdownItem>
+                <DropdownItem key="copy">Copy link</DropdownItem>
+                <DropdownItem key="edit">Edit file</DropdownItem>
+                <DropdownItem
+                  key="delete"
+                  className="text-danger"
+                  color="danger"
+                >
+                  Delete file
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </NavbarContent>
       </Navbar>
     </div>
