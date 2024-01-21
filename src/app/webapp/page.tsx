@@ -1,12 +1,5 @@
-"use client";
-import WebAppNavbar from "./webAppNavBar/WebAppNavbar";
+const WebApp = () => {
+  return <div>BlogPage</div>;
+};
 
-export default function WebApp() {
-  return (
-    <>
-      <div>
-        <WebAppNavbar />
-      </div>
-    </>
-  );
-}
+export default WebApp;
