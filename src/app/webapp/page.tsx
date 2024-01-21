@@ -1,8 +1,11 @@
-export default function Home() {
+"use client";
+import WebAppNavbar from "./webAppNavBar/WebAppNavbar";
+
+export default function WebApp() {
   return (
     <>
       <div>
-        <h1>Webapp</h1>
+        <WebAppNavbar />
       </div>
     </>
   );
