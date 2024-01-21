@@ -1,5 +1,13 @@
+import WebPage from "./webAppDashboard/page";
+import WebAppNavbar from "./webAppNavBar/WebAppNavbar";
+
 const WebApp = () => {
-  return <div>BlogPage</div>;
+  return (
+    <div>
+      <WebAppNavbar />
+      <WebPage />
+    </div>
+  );
 };
 
 export default WebApp;
