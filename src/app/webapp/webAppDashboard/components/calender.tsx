@@ -1,7 +1,14 @@
+import React from "react";
+import { Textarea } from "@nextui-org/react";
+
 const Calender = () => {
   return (
     <div>
-      <h1>calender</h1>
+      <Textarea
+        label="Description"
+        placeholder="Enter your description"
+        className="max-w"
+      />
     </div>
   );
 };

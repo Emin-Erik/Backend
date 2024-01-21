@@ -11,7 +11,7 @@ export function Sidebar() {
           <div className="h-[420px] px-1">
             <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md mt-4 ml-4">
               <Progress
-                size="lg"
+                size="md"
                 label="Kalorien"
                 color="default"
                 aria-label="Loading..."
@@ -25,24 +25,28 @@ export function Sidebar() {
                 value={70}
               />
               <Progress
+                size="sm"
                 label="Salz"
                 color="secondary"
                 aria-label="Loading..."
                 value={70}
               />
               <Progress
+                size="sm"
                 label="Kohlenhydrate"
                 color="success"
                 aria-label="Loading..."
                 value={70}
               />
               <Progress
+                size="sm"
                 label="Protein"
                 color="warning"
                 aria-label="Loading..."
                 value={70}
               />
               <Progress
+                size="sm"
                 label="Fett"
                 color="danger"
                 aria-label="Loading..."
