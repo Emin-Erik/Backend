@@ -28,6 +28,8 @@ export function Sidebar() {
                   color="warning"
                   showValueLabel={true}
                   className="max-w-md"
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${4206} kcal`}
                 />
               </div>
               <div className="flex flex-col ml-16 w-52 mt-2">
@@ -36,8 +38,11 @@ export function Sidebar() {
                   label="Zucker"
                   color="warning"
                   aria-label="Loading..."
+                  showValueLabel={true}
                   value={70}
                   className="mt-2"
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${2000} kcal`}
                 />
                 <Progress
                   size="sm"
@@ -45,7 +50,10 @@ export function Sidebar() {
                   color="warning"
                   aria-label="Loading..."
                   value={60}
+                  showValueLabel={true}
                   className="mt-6"
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${2000} kcal`}
                 />
                 <Progress
                   size="sm"
@@ -53,7 +61,10 @@ export function Sidebar() {
                   color="danger"
                   aria-label="Loading..."
                   value={95}
+                  showValueLabel={true}
                   className="mt-6"
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${2000} kcal`}
                 />
                 <Progress
                   size="sm"
@@ -61,7 +72,10 @@ export function Sidebar() {
                   color="success"
                   aria-label="Loading..."
                   value={40}
+                  showValueLabel={true}
                   className="mt-6"
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${2000} kcal`}
                 />
                 <Progress
                   size="sm"
@@ -69,7 +83,12 @@ export function Sidebar() {
                   color="primary"
                   aria-label="Loading..."
                   value={10}
+                  showValueLabel={true}
                   className="mt-6"
+                  value={4000}
+                  maxValue={10000}
+                  formatOptions={{ style: "decimal" }}
+                  valueLabel={`${2000} kcal`}
                 />
               </div>
             </div>
