@@ -15,11 +15,11 @@ export default function WebPage() {
     <>
       <div className="hidden md:block">
         <div className="">
-          <div className="bg-background">
-            <div className="grid lg:grid-cols-5 drop-shadow-2xl">
+          <div className="bg-default">
+            <div className="grid lg:grid-cols-5 drop-shadow-2xl ml-4">
               <Sidebar />
 
-              <div className="col-span-3 lg:col-span-4">
+              <div className="col-span-3 lg:col-span-4 ml-4">
                 <div className="drop-shadow-2xl">
                   <Calender />
                 </div>
