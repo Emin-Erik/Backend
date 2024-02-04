@@ -19,7 +19,7 @@ import {
 const WebAppNavbar: NextPage = () => {
   return (
     <div>
-      <Navbar className="mt-10 bg-black bg-opacity-30">
+      <Navbar className="mt-5 bg-black bg-opacity-30">
         <NavbarBrand>
           <a href="/">
             <img className="max-h-24" src="/assets/Axiom_Logo.png" alt="Logo" />

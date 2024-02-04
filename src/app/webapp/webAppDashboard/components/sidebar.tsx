@@ -42,17 +42,18 @@ export function Sidebar() {
         <div className="px-3 py-2 drop-shadow-2xl rounded-lg bg-black/25 transition duration-240 ease-in-out hover:scale-105">
           <div className="h-[27rem] md:h-[20rem]">
             <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md ml-4">
-              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-28">
+              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-24">
                 <Progress
                   label="Kalorien:"
                   size="sm"
                   classNames={{
                     base: "max-w-md",
                     track: "drop-shadow-md  border-default",
-                    indicator: "bg-gradient-to-r from-green-800 to-red-400",
+                    indicator:
+                      "bg-gradient-to-r from-green-200 to-yellow-400 to-red-600",
                     label: "tracking-wider font-medium text-white",
                   }}
-                  value={4000}
+                  value={9000}
                   maxValue={10000}
                   color="warning"
                   showValueLabel={true}
@@ -61,7 +62,7 @@ export function Sidebar() {
                   valueLabel={`${4206} kcal`}
                 />
               </div>
-              <div className="flex flex-col ml-16 w-52 mt-2 md:w-52 md:ml-12 md:grid md:grid-cols-2 gap-4 md:text-xs  ">
+              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-10">
                 <Progress
                   size="sm"
                   label="Zucker"
@@ -69,12 +70,12 @@ export function Sidebar() {
                   aria-label="Loading..."
                   showValueLabel={true}
                   value={70}
-                  className="mt-2 md:mt-0 md:mr-4"
+                  className="mt-2 md:mt-4"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${200} kcal`}
                   classNames={{
                     label: "text-sm md:text-xs",
-                    value = "md:text-xs",
+                    value: "md:text-xs",
                   }}
                 />
                 <Progress
@@ -84,9 +85,13 @@ export function Sidebar() {
                   aria-label="Loading..."
                   value={60}
                   showValueLabel={true}
-                  className="mt-6 md:mt-5 md:ml-4"
+                  className="mt-6 md:mt-4 "
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
+                  classNames={{
+                    label: "text-sm md:text-xs",
+                    value: "md:text-xs",
+                  }}
                 />
                 <Progress
                   size="sm"
@@ -95,43 +100,55 @@ export function Sidebar() {
                   aria-label="Loading..."
                   value={95}
                   showValueLabel={true}
-                  className="mt-6"
+                  className="mt-6 md:mt-4 "
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
+                  classNames={{
+                    label: "text-sm md:text-xs",
+                    value: "md:text-xs",
+                  }}
                 />
                 <Progress
                   size="sm"
                   label="Kohlenhydrate"
                   color="success"
                   aria-label="Loading..."
-                  value={40}
+                  value={50}
                   showValueLabel={true}
-                  className="mt-6"
+                  className="mt-6 md:mt-4"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
+                  classNames={{
+                    label: "text-sm md:text-xs",
+                    value: "md:text-xs",
+                  }}
                 />
                 <Progress
                   size="sm"
                   label="Nährstoffe"
                   color="primary"
                   aria-label="Loading..."
-                  value={10}
+                  value={40}
                   showValueLabel={true}
-                  className="mt-6"
-                  maxValue={10000}
+                  className="mt-6 md:mt-4"
+                  maxValue={100}
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
+                  classNames={{
+                    label: "text-sm md:text-xs",
+                    value: "md:text-xs",
+                  }}
                 />
               </div>
             </div>
           </div>
         </div>
         <div className="py-2 bg-cover rounded-lg bg-black/25  mt-11 drop-shadow-2xl rounded-lg transition duration-240 ease-in-out hover:scale-105">
-          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48">
+          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-sm md:ml-28">
             Dein Plan
           </h2>
-          <div className="h-[28.05rem] w-px-1">
-            <div className="w-full flex flex-row flex-wrap gap-4 ml-2 mt-8">
+          <div className="h-[28.05rem] md:h-[12.5rem]">
+            <div className="w-full flex flex-row flex-wrap gap-4 ml-1 mt-8 md:mt-6  md:grid md:grid-cols-2 md:gap-2">
               <Input
                 type="email"
                 label="Gewicht"
@@ -140,7 +157,10 @@ export function Sidebar() {
                 variant="bordered"
                 placeholder="110kg"
                 defaultValue="110kg"
-                className="max-w-[220px] ml-2"
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
               />
               <Select
                 label="Wähle deinen Plan"
@@ -148,7 +168,10 @@ export function Sidebar() {
                 color="success"
                 key="success"
                 variant="bordered"
-                className="max-w-[220px] ml-2 text-foreground "
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
               >
                 {plan.map((plans) => (
                   <SelectItem key={plans.value} value={plans.value}>
@@ -162,7 +185,10 @@ export function Sidebar() {
                 color="success"
                 key="success"
                 variant="bordered"
-                className="max-w-[220px] ml-2 text-foreground "
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
               >
                 {geschlechter.map((geschlecht) => (
                   <SelectItem key={geschlecht.value} value={geschlecht.value}>
@@ -178,17 +204,10 @@ export function Sidebar() {
                 key="success"
                 placeholder="Enter your email"
                 defaultValue="junior@nextui.org"
-                className="max-w-[220px] ml-2"
-              />
-              <Input
-                type="email"
-                label="Email"
-                color="success"
-                key="success"
-                variant="bordered"
-                placeholder="Enter your email"
-                defaultValue="junior@nextui.org"
-                className="max-w-[220px] ml-2"
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
               />
             </div>
           </div>
