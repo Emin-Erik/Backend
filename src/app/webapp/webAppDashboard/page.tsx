@@ -15,7 +15,7 @@ export default function WebPage() {
     <>
       <div className="hidden md:block">
         <div className="">
-          <div className="bg-default">
+          <div className="">
             <div className="grid lg:grid-cols-5 drop-shadow-2xl ml-4">
               <Sidebar />
 

@@ -39,16 +39,10 @@ export function Sidebar() {
   return (
     <div className={"pb-12"}>
       <div className="py-4 pt-10 ">
-        <div
-          className="px-3 py-2 drop-shadow-2xl rounded-lg bg-cover transition duration-240 ease-in-out hover:scale-105"
-          style={{
-            backgroundImage:
-              'url("https://wallpapercave.com/wp/wp8207303.jpg")',
-          }}
-        >
-          <div className="h-[27rem]">
+        <div className="px-3 py-2 drop-shadow-2xl rounded-lg bg-black/25 transition duration-240 ease-in-out hover:scale-105">
+          <div className="h-[27rem] md:h-[20rem]">
             <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md ml-4">
-              <div className="px-4 ml-14 mt-4 w-48">
+              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-28">
                 <Progress
                   label="Kalorien:"
                   size="sm"
@@ -67,7 +61,7 @@ export function Sidebar() {
                   valueLabel={`${4206} kcal`}
                 />
               </div>
-              <div className="flex flex-col ml-16 w-52 mt-2">
+              <div className="flex flex-col ml-16 w-52 mt-2 md:w-52 md:ml-12 md:grid md:grid-cols-2 gap-4 md:text-xs  ">
                 <Progress
                   size="sm"
                   label="Zucker"
@@ -75,9 +69,13 @@ export function Sidebar() {
                   aria-label="Loading..."
                   showValueLabel={true}
                   value={70}
-                  className="mt-2"
+                  className="mt-2 md:mt-0 md:mr-4"
                   formatOptions={{ style: "decimal" }}
-                  valueLabel={`${2000} kcal`}
+                  valueLabel={`${200} kcal`}
+                  classNames={{
+                    label: "text-sm md:text-xs",
+                    value = "md:text-xs",
+                  }}
                 />
                 <Progress
                   size="sm"
@@ -86,7 +84,7 @@ export function Sidebar() {
                   aria-label="Loading..."
                   value={60}
                   showValueLabel={true}
-                  className="mt-6"
+                  className="mt-6 md:mt-5 md:ml-4"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
                 />
@@ -128,13 +126,7 @@ export function Sidebar() {
             </div>
           </div>
         </div>
-        <div
-          className="py-2 bg-cover rounded-lg bg-lime-950 mt-11 drop-shadow-2xl rounded-lg transition duration-240 ease-in-out hover:scale-105"
-          style={{
-            backgroundImage:
-              'url("https://wallpapercave.com/wp/wp8207303.jpg")',
-          }}
-        >
+        <div className="py-2 bg-cover rounded-lg bg-black/25  mt-11 drop-shadow-2xl rounded-lg transition duration-240 ease-in-out hover:scale-105">
           <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48">
             Dein Plan
           </h2>
