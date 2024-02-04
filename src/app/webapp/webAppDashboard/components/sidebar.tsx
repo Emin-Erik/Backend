@@ -36,6 +36,25 @@ export function Sidebar() {
     },
   ];
 
+  const sport = [
+    {
+      label: "Viel",
+      value: "Viel",
+    },
+    {
+      label: "Normal",
+      value: "Normal",
+    },
+    {
+      label: "Wenig",
+      value: "Wenig",
+    },
+    {
+      label: "Kaum",
+      value: "Kaum",
+    },
+  ];
+
   return (
     <div className={"pb-12"}>
       <div className="py-4 pt-10 ">
@@ -45,7 +64,7 @@ export function Sidebar() {
               <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-24">
                 <Progress
                   label="Kalorien:"
-                  size="sm"
+                  size="md"
                   classNames={{
                     base: "max-w-md",
                     track: "drop-shadow-md  border-default",
@@ -144,10 +163,10 @@ export function Sidebar() {
           </div>
         </div>
         <div className="py-2 bg-cover rounded-lg bg-black/25  mt-11 drop-shadow-2xl rounded-lg transition duration-240 ease-in-out hover:scale-105">
-          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-sm md:ml-28">
+          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-md md:ml-28">
             Dein Plan
           </h2>
-          <div className="h-[28.05rem] md:h-[12.5rem]">
+          <div className="h-[28.05rem] md:h-[8.5rem]">
             <div className="w-full flex flex-row flex-wrap gap-4 ml-1 mt-8 md:mt-6  md:grid md:grid-cols-2 md:gap-2">
               <Input
                 type="email"
@@ -196,19 +215,23 @@ export function Sidebar() {
                   </SelectItem>
                 ))}
               </Select>
-              <Input
-                type="email"
-                label="Email"
-                variant="bordered"
+              <Select
+                label="Deine Aktivität"
+                placeholder="Viel Sport"
                 color="success"
                 key="success"
-                placeholder="Enter your email"
-                defaultValue="junior@nextui.org"
+                variant="bordered"
                 className="max-w-[220px] md:max-w-[140px] ml-2"
                 classNames={{
                   label: "md:text-xs",
                 }}
-              />
+              >
+                {sport.map((sporter) => (
+                  <SelectItem key={sporter.value} value={sporter.value}>
+                    {sporter.label}
+                  </SelectItem>
+                ))}
+              </Select>
             </div>
           </div>
         </div>
