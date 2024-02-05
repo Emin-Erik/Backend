@@ -61,7 +61,7 @@ export function Sidebar() {
         <div className="px-3 py-2 drop-shadow-2xl rounded-lg bg-black/25 transition duration-240 ease-in-out hover:scale-105">
           <div className="h-[27rem] md:h-[20rem]">
             <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md ml-4">
-              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-24">
+              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-28">
                 <Progress
                   label="Kalorien:"
                   size="md"
@@ -81,7 +81,7 @@ export function Sidebar() {
                   valueLabel={`${4206} kcal`}
                 />
               </div>
-              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-10">
+              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-12">
                 <Progress
                   size="sm"
                   label="Zucker"
@@ -166,7 +166,7 @@ export function Sidebar() {
           <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-md md:ml-28">
             Dein Plan
           </h2>
-          <div className="h-[28.05rem] md:h-[8.5rem]">
+          <div className="h-[28.05rem] md:h-[12.5rem]">
             <div className="w-full flex flex-row flex-wrap gap-4 ml-1 mt-8 md:mt-6  md:grid md:grid-cols-2 md:gap-2">
               <Input
                 type="email"
@@ -181,23 +181,20 @@ export function Sidebar() {
                   label: "md:text-xs",
                 }}
               />
-              <Select
-                label="Wähle deinen Plan"
-                placeholder="Dein Plan"
+              <Input
+                type="email"
+                label="Zielgewicht"
                 color="success"
                 key="success"
                 variant="bordered"
+                placeholder="90kg"
+                defaultValue="90kg"
                 className="max-w-[220px] md:max-w-[140px] ml-2"
                 classNames={{
                   label: "md:text-xs",
                 }}
-              >
-                {plan.map((plans) => (
-                  <SelectItem key={plans.value} value={plans.value}>
-                    {plans.label}
-                  </SelectItem>
-                ))}
-              </Select>
+              />
+
               <Select
                 label="Dein Geschlecht"
                 placeholder="Dein Geschlecht"
@@ -232,6 +229,36 @@ export function Sidebar() {
                   </SelectItem>
                 ))}
               </Select>
+              <Select
+                label="Wähle deinen Plan"
+                placeholder="Dein Plan"
+                color="success"
+                key="success"
+                variant="bordered"
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
+              >
+                {plan.map((plans) => (
+                  <SelectItem key={plans.value} value={plans.value}>
+                    {plans.label}
+                  </SelectItem>
+                ))}
+              </Select>
+              <Input
+                type="email"
+                label="Deine Größe"
+                color="success"
+                key="success"
+                variant="bordered"
+                placeholder="180cm"
+                defaultValue="180cm"
+                className="max-w-[220px] md:max-w-[140px] ml-2"
+                classNames={{
+                  label: "md:text-xs",
+                }}
+              />
             </div>
           </div>
         </div>
