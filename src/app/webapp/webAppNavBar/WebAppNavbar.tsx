@@ -1,3 +1,4 @@
+"use client";
 import type { NextPage } from "next";
 import { FaHeart } from "react-icons/fa";
 import { LuRefreshCcw } from "react-icons/lu";
