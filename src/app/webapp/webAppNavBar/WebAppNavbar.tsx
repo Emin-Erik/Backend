@@ -16,14 +16,15 @@ import {
   DropdownItem,
   User,
 } from "@nextui-org/react";
+import MyProfile from "@/app/components/loggedIn/MyProfile";
 
 const WebAppNavbar: NextPage = () => {
   return (
     <div>
-      <Navbar className="mt-5 bg-black bg-opacity-30">
+      <Navbar className=" bg-black bg-opacity-30">
         <NavbarBrand>
           <a href="/">
-            <img className="max-h-24" src="/assets/Axiom_Logo.png" alt="Logo" />
+            <img className="max-h-12" src="/assets/Axiom_Logo.png" alt="Logo" />
           </a>
         </NavbarBrand>
 
@@ -49,32 +50,7 @@ const WebAppNavbar: NextPage = () => {
 
         <NavbarContent as="div" justify="end">
           <div className="flex items-center gap-4">
-            <Dropdown placement="bottom-end">
-              <DropdownTrigger>
-                <User
-                  as="button"
-                  avatarProps={{
-                    isBordered: true,
-                    src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-                  }}
-                  className="transition-transform"
-                  description="@tonyreichert"
-                  name="Tony Reichert"
-                />
-              </DropdownTrigger>
-              <DropdownMenu aria-label="User Actions" variant="flat">
-                <DropdownItem key="new">New file</DropdownItem>
-                <DropdownItem key="copy">Copy link</DropdownItem>
-                <DropdownItem key="edit">Edit file</DropdownItem>
-                <DropdownItem
-                  key="delete"
-                  className="text-danger"
-                  color="danger"
-                >
-                  Delete file
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
+            <MyProfile />
           </div>
         </NavbarContent>
       </Navbar>
