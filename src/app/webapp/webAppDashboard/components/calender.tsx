@@ -1,5 +1,6 @@
 import React from "react";
 import NavCalender from "./navCalender";
+import WebCalender from "./webCalender";
 
 const Calender = () => {
   return (
@@ -8,7 +9,7 @@ const Calender = () => {
         <NavCalender />
       </div>
       <div className="h-[54.25rem] md:h-[34rem] md:mb-[3.25rem] px-4 py-6 rounded-lg lg:px-8 bg-black/25 mt-4 mr-4 drop-shadow-3xl">
-        Calender
+        <WebCalender />
       </div>
     </div>
   );
