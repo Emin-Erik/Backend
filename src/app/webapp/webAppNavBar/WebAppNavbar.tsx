@@ -16,7 +16,7 @@ import {
   DropdownItem,
   User,
 } from "@nextui-org/react";
-import MyProfile from "@/app/components/loggedIn/MyProfile";
+import MyProfile from "@/components/loggedIn/MyProfile";
 
 const WebAppNavbar: NextPage = () => {
   return (
