@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@nextui-org/react";
 import Lottie from "lottie-react";
-import animation from "@/app/components/signUp_images/animation_404.json";
+import animation from "@/components/signUp_images/animation_404.json";
 
 const NotFound = () => {
   const style = {
