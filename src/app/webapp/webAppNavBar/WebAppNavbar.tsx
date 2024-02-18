@@ -5,16 +5,11 @@ import { LuRefreshCcw } from "react-icons/lu";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import React from "react";
 import {
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Link,
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-  User,
 } from "@nextui-org/react";
 import MyProfile from "@/components/loggedIn/MyProfile";
 
