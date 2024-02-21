@@ -23,7 +23,10 @@ const WebAppNavbar: NextPage = () => {
           </a>
         </NavbarBrand>
 
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarContent
+          className="hidden sm:flex sm:gap-4 xs:gap-1"
+          justify="center"
+        >
           <NavbarItem>
             <Link color="foreground" href="#">
               <FaHeart className="mr-2" /> Plan speichern
