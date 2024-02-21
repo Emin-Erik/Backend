@@ -57,11 +57,11 @@ export function Sidebar() {
 
   return (
     <div className={"pb-12"}>
-      <div className="py-4 pt-10 ">
+      <div className="py-4 pt-10 lg:flex lg:flex-col flex flex-row">
         <div className="px-3 py-2 drop-shadow-2xl rounded-lg bg-black/25 transition duration-240 ease-in-out hover:scale-105">
           <div className="h-[27rem] md:h-[20rem]">
             <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md ml-4">
-              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-28">
+              <div className="px-4 ml-14 mt-4 w-48 lg:ml-[4rem] xl:ml-[5.8rem] 2xl:ml-[7.8rem] 2xl:w-[18rem] 3xl:ml-[22.8rem]">
                 <Progress
                   label="Kalorien:"
                   size="md"
@@ -81,7 +81,7 @@ export function Sidebar() {
                   valueLabel={`${4206} kcal`}
                 />
               </div>
-              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-12">
+              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-4 lg:w-52">
                 <Progress
                   size="sm"
                   label="Zucker"
@@ -163,7 +163,7 @@ export function Sidebar() {
           </div>
         </div>
         <div className="py-2 bg-cover rounded-lg bg-black/25  mt-11 drop-shadow-2xl rounded-lg transition duration-240 ease-in-out hover:scale-105">
-          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-md md:ml-28">
+          <h2 className="relative px-4 text-lg font-semibold tracking-tight ml-14 mt-4 w-48 md:text-md md:ml-44 lg:ml-0">
             Dein Plan
           </h2>
           <div className="h-[28.05rem] md:h-[12.5rem]">
