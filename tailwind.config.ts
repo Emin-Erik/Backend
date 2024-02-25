@@ -16,11 +16,19 @@ const config: Config = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     extend: {
+      screens: {
+        "small2": "675px",
+        "mid2": "720px",
+        "mid3": "748px",
+        "mid4": "810px",
+        "mid5": "890px",
+        "prelarge": "980px",
+        "2xl": "1400px",
+        "3xl": "1600px",
+        "4xl": "1800px",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
