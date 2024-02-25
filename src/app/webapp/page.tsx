@@ -1,5 +1,5 @@
 import WebPage from "./webAppDashboard/page";
-import WebAppNavbar from "./webAppNavBar/WebAppNavbar";
+import WebAppNavbarNew from "./webAppNavBar/webAppNavbar_new";
 
 const WebApp = () => {
   return (
@@ -9,7 +9,7 @@ const WebApp = () => {
         backgroundImage: 'url("https://wallpapercave.com/wp/wp8207303.jpg")',
       }}
     >
-      <WebAppNavbar />
+      <WebAppNavbarNew />
       <WebPage />
     </div>
   );

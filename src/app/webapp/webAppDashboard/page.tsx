@@ -11,23 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function WebPage() {
-  return (
-    <>
-      <div className="hidden md:block">
-        <div className="">
-          <div className="">
-            <div className="grid lg:grid-cols-5 drop-shadow-2xl ml-4">
-              <Sidebar />
-
-              <div className="col-span-3 lg:col-span-4 ml-4">
-                <div className="drop-shadow-2xl">
-                  <Calender />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  return <></>;
 }
