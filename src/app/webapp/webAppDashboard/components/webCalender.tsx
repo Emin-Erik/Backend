@@ -1,6 +1,6 @@
 import React from "react";
 function WebCalender() {
-  return <div></div>;
+  return <div>Calender</div>;
 }
 
 export default WebCalender;
