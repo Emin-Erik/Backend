@@ -5,6 +5,7 @@ import Card from "./card";
 import WeekdayButton from "./weekdayButton";
 import ModalComponent from "./modalComponent";
 import NavCalendar from "./navCalender";
+import { dishOptions } from "./dishOptions";
 
 const WebCalendar: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,9 +56,10 @@ const WebCalendar: React.FC = () => {
     if (selectedDish && selectedDayIndex !== null) {
       const newCards = { ...cards };
       const selectedDateString = currentWeekDates[selectedDayIndex].toLocaleDateString();
+      const selectedDishOption = dishOptions.find((dish) => dish.name === selectedDish);
       const cardContent = {
         title: selectedDish,
-        imageUrl: "https://pommes-selbermachen.de/wp-content/uploads/portion-pommes.jpg"
+        imageUrl: selectedDishOption ? selectedDishOption.imageUrl : ""
       };
       if (!newCards[selectedDateString]) {
         newCards[selectedDateString] = [];
@@ -98,7 +100,7 @@ const WebCalendar: React.FC = () => {
         <span>{card.title}</span>
       </div>
     ));
-
+  
     return renderedCards;
   };
 
