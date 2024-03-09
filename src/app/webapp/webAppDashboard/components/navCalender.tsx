@@ -1,4 +1,4 @@
-// NavCalendar.tsx
+"use client";
 import React, { useEffect } from "react";
 import { IoChevronBackOutline, IoChevronForward } from "react-icons/io5";
 import { Button } from "@nextui-org/react";
@@ -6,7 +6,7 @@ import { Button } from "@nextui-org/react";
 interface NavCalendarProps {
   currentDate: Date;
   setCurrentWeekDates: React.Dispatch<React.SetStateAction<Date[]>>;
-  currentWeekDates: Date[]; // New prop added
+  currentWeekDates: Date[];
   handlePreviousWeek: () => void;
   handleNextWeek: () => void;
 }
@@ -16,18 +16,18 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
   handleNextWeek,
   currentDate,
   setCurrentWeekDates,
-  currentWeekDates // Receive currentWeekDates as prop
+  currentWeekDates,
 }) => {
   useEffect(() => {
     setCurrentWeekDates(getWeekDates());
   }, [currentDate]);
 
   const handlePreviousWeekClick = () => {
-    handlePreviousWeek(); // Call handlePreviousWeek here
+    handlePreviousWeek();
   };
 
   const handleNextWeekClick = () => {
-    handleNextWeek(); // Call handlePreviousWeek here
+    handleNextWeek();
   };
 
   const getWeekDates = (startDate: Date = new Date()) => {
@@ -42,60 +42,71 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
     }
     return weekDates;
   };
-
   const getFormattedWeekDates = () => {
-    if (currentWeekDates.length === 0) return ""; // Return empty string if currentWeekDates is empty
+    if (currentWeekDates.length === 0) return "";
   
     const startOfWeek = currentWeekDates[0];
     const endOfWeek = currentWeekDates[currentWeekDates.length - 1];
   
-    return `${startOfWeek.toLocaleDateString("en-US", {
-      month: "long",
+    const startMonthDay = startOfWeek.toLocaleDateString("de-DE", {
+      month: "short",
       day: "numeric",
-    })} - ${endOfWeek.toLocaleDateString("en-US", {
-      month: "long",
+    });
+  
+    const endMonthDay = endOfWeek.toLocaleDateString("de-DE", {
+      month: "short",
       day: "numeric",
-      year: "numeric",
-    })}`;
+    });
+  
+    return `${startMonthDay} - ${endMonthDay}`;
   };
+  
+
+  const getCalendarWeekNumber = (date: Date) => {
+    if (!date) return 0; // Return 0 if date is undefined
+  
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const daysOffset =
+      firstDayOfYear.getDay() > 4 ? 11 - firstDayOfYear.getDay() : 4 - firstDayOfYear.getDay();
+    const firstThursday = new Date(firstDayOfYear.setDate(firstDayOfYear.getDate() + daysOffset));
+    const weekNumber = Math.ceil(((date.getTime() - firstThursday.getTime()) / 86400000 + 1) / 7);
+    return weekNumber;
+  };
+  
 
   return (
-    <div>
-      <div className="mt-4 flex flex-row">
-        <IoChevronBackOutline
-          className="mt-2 text-7xl cursor-pointer"
-          onClick={handlePreviousWeekClick}
-        />
-        <IoChevronForward
-          className="mt-2 text-7xl ml-4 cursor-pointer"
-          onClick={handleNextWeekClick}
-        />
-        <div>
-        <p className="flex justify-end opacity-75">
-  {currentWeekDates && currentWeekDates.length > 0 ? 
-    currentWeekDates[0].toLocaleDateString("en-US", { weekday: "long" }) :
-    "Loading..."}{" "}
-  Kalenderwoche
-</p>
-          <h1 className="text-4xl mt-2 ml-4 mb-2">{getFormattedWeekDates()}</h1>
-        </div>
-        <div className="flex ml-[27rem]" style={{ gap: "3rem" }}>
-          <Button
-            className="mt-3"
-            color="primary"
-            variant="ghost"
-            size="lg"
-            style={{ height: "3.5rem" }}
-          >
-            Zufälliges <br></br>Rezept
-          </Button>
-          <Button className="mt-4" color="primary" variant="ghost" size="lg">
+    <div className="flex flex-row">
+      <IoChevronBackOutline
+        className="mt-2 text-7xl cursor-pointer"
+        onClick={handlePreviousWeekClick}
+      />
+      <IoChevronForward
+        className="mt-2 text-7xl ml-4 cursor-pointer"
+        onClick={handleNextWeekClick}
+      />
+      <div className="flex flex-col mb-8">
+        <h2 className="text-md opacity-75 mb-1">Kalenderwoche</h2>
+        <p className="text-2xl opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(currentWeekDates[0])}`}</p>
+
+        <p className="text-2xl opacity-75 mb-0">{getFormattedWeekDates()}</p>
+      </div>
+      <div className="flex ml-[27rem]" style={{ gap: "3rem" }}>
+        <Button
+          className="mt-3"
+          color="primary"
+          variant="ghost"
+          size="lg"
+          style={{ height: "3.5rem" }}
+        >
+          Zufälliges <br />Rezept
+        </Button>
+        <Button className="mt-4" color="primary" variant="ghost" size="lg">
           Erstellen
-          </Button>
-        </div>
+        </Button>
       </div>
     </div>
   );
+  
 };
 
 export default NavCalendar;
