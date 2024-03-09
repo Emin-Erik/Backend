@@ -6,7 +6,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 function NavCalendar() {
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="mt-4 flex flex-row">
         <IoChevronBackOutline className="mt-2 text-7xl" />
         <IoChevronForward className="mt-2 text-7xl ml-4" />
         <div>
