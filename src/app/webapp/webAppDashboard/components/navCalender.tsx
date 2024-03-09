@@ -77,15 +77,15 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
   return (
     <div className="flex flex-row">
       <IoChevronBackOutline
-        className="mt-2 text-7xl cursor-pointer"
+        className="text-7xl cursor-pointer"
         onClick={handlePreviousWeekClick}
       />
       <IoChevronForward
-        className="mt-2 text-7xl ml-4 cursor-pointer"
+        className="text-7xl ml-4 cursor-pointer"
         onClick={handleNextWeekClick}
       />
       <div className="flex flex-col mb-8">
-        <h2 className="text-md opacity-75 mb-1">Kalenderwoche</h2>
+  
         <p className="text-2xl opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(currentWeekDates[0])}`}</p>
 
         <p className="text-2xl opacity-75 mb-0">{getFormattedWeekDates()}</p>
