@@ -7,9 +7,13 @@ interface NavCalendarProps {
   currentDate: Date;
   setCurrentWeekDates: React.Dispatch<React.SetStateAction<Date[]>>;
   currentWeekDates: Date[]; // New prop added
+  handlePreviousWeek: () => void;
+  handleNextWeek: () => void;
 }
 
 const NavCalendar: React.FC<NavCalendarProps> = ({
+  handlePreviousWeek,
+  handleNextWeek,
   currentDate,
   setCurrentWeekDates,
   currentWeekDates // Receive currentWeekDates as prop
@@ -18,16 +22,12 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
     setCurrentWeekDates(getWeekDates());
   }, [currentDate]);
 
-  const handlePreviousWeek = () => {
-    const prevWeek = new Date(currentDate);
-    prevWeek.setDate(prevWeek.getDate() - 7);
-    setCurrentWeekDates(getWeekDates(prevWeek));
+  const handlePreviousWeekClick = () => {
+    handlePreviousWeek(); // Call handlePreviousWeek here
   };
 
-  const handleNextWeek = () => {
-    const nextWeek = new Date(currentDate);
-    nextWeek.setDate(nextWeek.getDate() + 7);
-    setCurrentWeekDates(getWeekDates(nextWeek));
+  const handleNextWeekClick = () => {
+    handleNextWeek(); // Call handlePreviousWeek here
   };
 
   const getWeekDates = (startDate: Date = new Date()) => {
@@ -64,11 +64,11 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
       <div className="mt-4 flex flex-row">
         <IoChevronBackOutline
           className="mt-2 text-7xl cursor-pointer"
-          onClick={handlePreviousWeek}
+          onClick={handlePreviousWeekClick}
         />
         <IoChevronForward
           className="mt-2 text-7xl ml-4 cursor-pointer"
-          onClick={handleNextWeek}
+          onClick={handleNextWeekClick}
         />
         <div>
         <p className="flex justify-end opacity-75">

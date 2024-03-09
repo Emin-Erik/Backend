@@ -23,12 +23,14 @@ const WebCalendar: React.FC = () => {
     const prevWeek = new Date(currentDate);
     prevWeek.setDate(prevWeek.getDate() - 7);
     setCurrentDate(prevWeek);
+    setCurrentWeekDates(getWeekDates(prevWeek)); // Update currentWeekDates here
   };
 
   const handleNextWeek = () => {
     const nextWeek = new Date(currentDate);
     nextWeek.setDate(nextWeek.getDate() + 7);
     setCurrentDate(nextWeek);
+    setCurrentWeekDates(getWeekDates(nextWeek)); // Update currentWeekDates here
   };
 
   const getWeekDates = (startDate: Date = new Date()) => {
@@ -104,10 +106,12 @@ const WebCalendar: React.FC = () => {
     <div className="p-4">
       <h2 className="text-lg font-semibold mb-4">Kalender</h2>
       <NavCalendar
-  currentDate={currentDate}
-  setCurrentWeekDates={setCurrentWeekDates}
-  currentWeekDates={currentWeekDates} // Pass currentWeekDates as prop
-/>
+        currentDate={currentDate}
+        setCurrentWeekDates={setCurrentWeekDates}
+        currentWeekDates={currentWeekDates}
+        handlePreviousWeek={handlePreviousWeek}
+        handleNextWeek={handleNextWeek} // Pass handlePreviousWeek as prop
+      />
       <div className="grid grid-cols-7 gap-4">
         {currentWeekDates.map((date, index) => (
           <WeekdayButton
