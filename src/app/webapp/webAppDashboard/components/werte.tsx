@@ -1,3 +1,4 @@
+import { Progress } from "@nextui-org/react";
 import React from "react";
 
 export function Werte() {
@@ -54,12 +55,11 @@ export function Werte() {
   ];
 
   return (
-    <div className={"pb-12"}>
-      <div className="py-4 pt-10 ">
-        <div className="px-3 py-2 drop-shadow-2xl rounded-lg bg-black/25 transition duration-240 ease-in-out hover:scale-105">
-          <div className="h-[27rem] md:h-[20rem]">
-            <div className="flex flex-col items-center gap-6 w-1/2 justify-start max-w-md ml-4">
-              <div className="px-4 ml-14 mt-4 w-48 md:w-48 md:ml-28">
+      <div className="py-2">
+          <div className="grid grid-flow-col min-h-[27rem] min-w-[17rem] md:min-h-[30rem]">
+            <div className="px-8">
+            {/* Kalorien */}
+              <div className="flex justify-center items-center">
                 <Progress
                   label="Kalorien:"
                   size="md"
@@ -79,7 +79,8 @@ export function Werte() {
                   valueLabel={`${4206} kcal`}
                 />
               </div>
-              <div className="flex flex-col ml-16 w-52 mt-2 md:mt-0 md:w-60 md:grid md:grid-cols-1 md:pl-12">
+              {/* Other essentials list */}
+              <div className="flex flex-col justify-center items-center px-8">
                 <Progress
                   size="sm"
                   label="Zucker"
@@ -87,7 +88,7 @@ export function Werte() {
                   aria-label="Loading..."
                   showValueLabel={true}
                   value={70}
-                  className="mt-2 md:mt-4"
+                  className="mt-2 md:mt-4 max-w-2xl"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${200} kcal`}
                   classNames={{
@@ -102,7 +103,7 @@ export function Werte() {
                   aria-label="Loading..."
                   value={60}
                   showValueLabel={true}
-                  className="mt-6 md:mt-4 "
+                  className="mt-6 md:mt-4 max-w-2xl"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
                   classNames={{
@@ -117,7 +118,7 @@ export function Werte() {
                   aria-label="Loading..."
                   value={95}
                   showValueLabel={true}
-                  className="mt-6 md:mt-4 "
+                  className="mt-6 md:mt-4 max-w-2xl"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
                   classNames={{
@@ -132,7 +133,7 @@ export function Werte() {
                   aria-label="Loading..."
                   value={50}
                   showValueLabel={true}
-                  className="mt-6 md:mt-4"
+                  className="mt-6 md:mt-4 max-w-2xl"
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
                   classNames={{
@@ -147,7 +148,7 @@ export function Werte() {
                   aria-label="Loading..."
                   value={40}
                   showValueLabel={true}
-                  className="mt-6 md:mt-4"
+                  className="mt-6 md:mt-4 max-w-2xl"
                   maxValue={100}
                   formatOptions={{ style: "decimal" }}
                   valueLabel={`${2000} kcal`}
@@ -160,4 +161,9 @@ export function Werte() {
             </div>
           </div>
         </div>
+
+        
+        );
+      }
+      
 export default Werte;
