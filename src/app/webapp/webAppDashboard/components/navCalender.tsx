@@ -9,6 +9,7 @@ interface NavCalendarProps {
   currentWeekDates: Date[];
   handlePreviousWeek: () => void;
   handleNextWeek: () => void;
+  saveCalendarData: () => void;
 }
 
 const NavCalendar: React.FC<NavCalendarProps> = ({
@@ -16,6 +17,7 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
   handleNextWeek,
   currentDate,
   setCurrentWeekDates,
+  saveCalendarData,
   currentWeekDates,
 }) => {
   useEffect(() => {
@@ -44,35 +46,39 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
   };
   const getFormattedWeekDates = () => {
     if (currentWeekDates.length === 0) return "";
-  
+
     const startOfWeek = currentWeekDates[0];
     const endOfWeek = currentWeekDates[currentWeekDates.length - 1];
-  
+
     const startMonthDay = startOfWeek.toLocaleDateString("de-DE", {
       month: "short",
       day: "numeric",
     });
-  
+
     const endMonthDay = endOfWeek.toLocaleDateString("de-DE", {
       month: "short",
       day: "numeric",
     });
-  
+
     return `${startMonthDay} - ${endMonthDay}`;
   };
-  
 
   const getCalendarWeekNumber = (date: Date) => {
     if (!date) return 0; // Return 0 if date is undefined
-  
+
     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
     const daysOffset =
-      firstDayOfYear.getDay() > 4 ? 11 - firstDayOfYear.getDay() : 4 - firstDayOfYear.getDay();
-    const firstThursday = new Date(firstDayOfYear.setDate(firstDayOfYear.getDate() + daysOffset));
-    const weekNumber = Math.ceil(((date.getTime() - firstThursday.getTime()) / 86400000 + 1) / 7);
+      firstDayOfYear.getDay() > 4
+        ? 11 - firstDayOfYear.getDay()
+        : 4 - firstDayOfYear.getDay();
+    const firstThursday = new Date(
+      firstDayOfYear.setDate(firstDayOfYear.getDate() + daysOffset)
+    );
+    const weekNumber = Math.ceil(
+      ((date.getTime() - firstThursday.getTime()) / 86400000 + 1) / 7
+    );
     return weekNumber;
   };
-  
 
   return (
     <div className="flex flex-row">
@@ -85,8 +91,9 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
         onClick={handleNextWeekClick}
       />
       <div className="flex flex-col mb-8">
-  
-        <p className="text-2xl opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(currentWeekDates[0])}`}</p>
+        <p className="text-2xl opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(
+          currentWeekDates[0]
+        )}`}</p>
 
         <p className="text-2xl opacity-75 mb-0">{getFormattedWeekDates()}</p>
       </div>
@@ -98,15 +105,21 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
           size="lg"
           style={{ height: "3.5rem" }}
         >
-          Zufälliges <br />Rezept
+          Zufälliges <br />
+          Rezept
         </Button>
-        <Button className="mt-4" color="primary" variant="ghost" size="lg">
-          Erstellen
+        <Button
+          className="mt-4"
+          color="primary"
+          variant="ghost"
+          size="lg"
+          onClick={saveCalendarData}
+        >
+          Save
         </Button>
       </div>
     </div>
   );
-  
 };
 
 export default NavCalendar;
