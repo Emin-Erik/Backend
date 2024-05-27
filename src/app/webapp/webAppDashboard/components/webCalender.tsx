@@ -101,7 +101,7 @@ const WebCalendar: React.FC = () => {
         handleNextWeek={handleNextWeek}
         saveCalendarData={saveCalendarData}
       />
-      <div className="grid grid-cols-7 gap-4">
+      <div className="grid grid-cols-7 gap-4 mt-8">
         {currentWeekDates.map((date, index) => (
           <WeekdayButton
             key={index}
@@ -112,7 +112,7 @@ const WebCalendar: React.FC = () => {
       </div>
       <div className="grid grid-cols-7 gap-4 mt-4">
         {currentWeekDates.map((date, dayIndex) => (
-          <div key={dayIndex} className="p-2 flex flex-col w-full">
+          <div key={dayIndex} className="flex flex-col w-full">
             <WeekdayButton
               key={dayIndex}
               onAddCard={() => addCardToDay(dayIndex)}

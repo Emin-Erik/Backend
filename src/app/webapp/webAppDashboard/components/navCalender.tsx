@@ -91,13 +91,15 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
         onClick={handleNextWeekClick}
       />
       <div className="flex flex-col mb-8">
-        <p className="text-2xl opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(
+        <p className="text-2xl md:text-sm md:mt-2.5 opacity-75 mb-0">{`Kalenderwoche ${getCalendarWeekNumber(
           currentWeekDates[0]
         )}`}</p>
 
-        <p className="text-2xl opacity-75 mb-0">{getFormattedWeekDates()}</p>
+        <p className="text-2xl md:text-lg opacity-75 mb-0">
+          {getFormattedWeekDates()}
+        </p>
       </div>
-      <div className="flex ml-[27rem]" style={{ gap: "3rem" }}>
+      <div className="flex ml-[27rem] md:ml-[28rem]" style={{ gap: "3rem" }}>
         <Button
           className="mt-3"
           color="primary"
@@ -115,7 +117,7 @@ const NavCalendar: React.FC<NavCalendarProps> = ({
           size="lg"
           onClick={saveCalendarData}
         >
-          Save
+          Speichern
         </Button>
       </div>
     </div>
