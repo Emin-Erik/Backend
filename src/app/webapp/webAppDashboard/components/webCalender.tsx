@@ -106,13 +106,18 @@ const WebCalendar: React.FC = () => {
           <WeekdayButton
             key={index}
             day={date.toLocaleDateString("en-US", { weekday: "long" })}
-            onAddCard={() => addCardToDay(index)}
+            showTitle={true}
           />
         ))}
       </div>
       <div className="grid grid-cols-7 gap-4 mt-4">
         {currentWeekDates.map((date, dayIndex) => (
-          <div key={dayIndex} className="border p-2 flex flex-col w-full">
+          <div key={dayIndex} className="p-2 flex flex-col w-full">
+            <WeekdayButton
+              key={dayIndex}
+              onAddCard={() => addCardToDay(dayIndex)}
+              showTitle={false}
+            />
             {cards[date.toLocaleDateString()] && (
               <div className="flex-grow overflow-y-auto">
                 {cards[date.toLocaleDateString()].map((card, cardIndex) => (
